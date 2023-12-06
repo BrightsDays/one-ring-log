@@ -8,16 +8,18 @@ export const Company = () => {
 
   return (
     <Card title="The company">
-      <div className="grid grid-cols-3 gap-2">
-        <span>Name</span>
-        <span>Journey role</span>
-        <span>Travel fatigue</span>
-        {list.map(() =>
-        <>
-          <TextInput />
-          <SelectInput list={roles} />
-          <TextInput />
-        </>
+      <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-3 gap-2">
+          <span>Name</span>
+          <span>Journey role</span>
+          <span>Travel fatigue</span>
+        </div>
+        {list.map(item =>
+          <div key={item} className="grid grid-cols-3 gap-2">
+            <TextInput />
+            <SelectInput list={roles} />
+            <TextInput />
+          </div>
         )}
       </div>
     </Card>

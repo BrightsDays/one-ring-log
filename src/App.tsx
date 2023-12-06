@@ -1,12 +1,16 @@
 import './App.css'
-import { Journey } from './components/Journey'
+import { Company } from './components/journey/Company'
+import { Log } from './components/journey/Log'
+import { Ponies } from './components/journey/Ponies'
 
 function App() {
 
   return (
-    <>
-      <Journey />
-    </>
+    <div className='flex gap-5'>
+      <Log />
+      <Company />
+      <Ponies />
+    </div>
   )
 }
 

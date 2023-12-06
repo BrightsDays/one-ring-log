@@ -1,12 +1,12 @@
 interface Props {
-  label: string
+  label?: string
 }
 
 export const TextInput = (props: Props) => {
   return (
-    <label className="flex justify-between gap-3">
-      {props.label}:
-      <input></input>
+    <label className="flex flex-col items-start gap-1">
+      {props.label ? props.label + ':' : ''}
+      <input className="w-full"></input>
     </label>
   )
 }

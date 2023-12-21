@@ -1,10 +1,58 @@
+import { useState } from "react"
 import { Card } from "../ui/Card"
-import { SelectInput } from "../ui/SelectInput"
-import { TextInput } from "../ui/TextInput"
+import { Player } from "./Player"
+import { PlayerStats } from "../../types"
 
 export const Company = () => {
-  const roles = ['guide', 'look-out', 'hunter', 'scout']
-  const list = Array.from(Array(7).keys())
+  const [list, setList] = useState([
+    {
+      id: 1,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 2,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 3,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 4,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 5,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 6,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    },
+    {
+      id: 7,
+      name: '',
+      role: 'guide',
+      fatigue: 0
+    }
+  ])
+
+  const updatePlayerList = (data: PlayerStats) => {
+    const tempList = list.map(item => item.id === data.id ? data : item)
+    if (JSON.stringify(tempList) !== JSON.stringify(list)) setList(tempList)
+  }
 
   return (
     <Card title="The company">
@@ -14,13 +62,15 @@ export const Company = () => {
           <span>Journey role</span>
           <span>Travel fatigue</span>
         </div>
-        {list.map(item =>
-          <div key={item} className="grid grid-cols-3 gap-2">
-            <TextInput />
-            <SelectInput list={roles} />
-            <TextInput />
-          </div>
-        )}
+        {list.map(item => {
+          return (
+            <Player
+              key={`player__${item.id}`}
+              player={item as PlayerStats}
+              playerEvent={(data) => updatePlayerList(data)}
+            />
+          )
+        })}
       </div>
     </Card>
   )

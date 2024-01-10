@@ -28,10 +28,10 @@ export const Player = ({player, playerEvent}: Props) => {
 
   return (
     <div className="grid grid-cols-3 gap-2">
-      <TextInput value={tempName} inputEvent={(value) => setName(value)} />
+      <TextInput value={tempName || ''} inputEvent={(value) => setName(value)} />
       <SelectInput
         list={roles}
-        value={tempRole}
+        value={tempRole || ''}
         inputEvent={(value) => setRole(value as Roles)}
       />
       <FatigueList

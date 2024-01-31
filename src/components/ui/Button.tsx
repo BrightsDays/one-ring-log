@@ -8,6 +8,7 @@ interface Props {
 export const Button = ({text, buttonEvent}: Props) => {
   const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
+    event.stopPropagation()
     buttonEvent()
   } 
 

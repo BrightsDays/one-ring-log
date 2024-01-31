@@ -19,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: "brightsdays",
     element: <Journey />,
+    
   },
 ])
 

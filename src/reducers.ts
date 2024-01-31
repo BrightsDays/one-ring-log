@@ -1,21 +1,16 @@
-import { combineReducers } from "@reduxjs/toolkit"
-
-type Action = {
-  type: 'get' | 'clear'
-}
+import { PayloadAction, combineReducers } from "@reduxjs/toolkit"
 
 const userState = {
   name: null
 }
 
-const userReducer = (state = userState, action: Action) => {
+const userReducer = (state = userState, action: PayloadAction<string>) => {
   switch (action.type) {
     case 'get':
       return {
         ...state,
-        name: 'email'
-      }     
-      break
+        name: action.payload
+      }
     case 'clear':
       return {
         ...state,
@@ -30,4 +25,5 @@ const rootReducer = combineReducers({
   user: userReducer
 })
 
+export type IRootState = ReturnType<typeof rootReducer>
 export default rootReducer

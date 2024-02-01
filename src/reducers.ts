@@ -1,15 +1,17 @@
 import { PayloadAction, combineReducers } from "@reduxjs/toolkit"
 
 const userState = {
+  id: null,
   name: null
 }
 
-const userReducer = (state = userState, action: PayloadAction<string>) => {
+const userReducer = (state = userState, action: PayloadAction<{email: string, id: string}>) => {
   switch (action.type) {
     case 'get':
       return {
         ...state,
-        name: action.payload
+        id: action.payload.id,
+        name: action.payload.email
       }
     case 'clear':
       return {

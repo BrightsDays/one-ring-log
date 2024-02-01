@@ -15,9 +15,12 @@ export const App = () => {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       const email = session?.user.email
-      if (email) dispatch({ type: 'get', payload: email })
+      const id = session?.user.id
+      console.log(session?.user);
+      
+      if (email) dispatch({ type: 'get', payload: { email, id } })
     })
-  })
+  }, [])
 
   return (
     <Template>

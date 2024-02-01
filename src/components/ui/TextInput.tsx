@@ -4,10 +4,11 @@ interface Props {
   label?: string
   value: string
   isPassword?: boolean
+  disabled?: boolean
   inputEvent: (data: string) => void
 }
 
-export const TextInput = ({label, value, isPassword, inputEvent}: Props) => {
+export const TextInput = ({label, value, isPassword, inputEvent, disabled}: Props) => {
   const sendValue = (event: ChangeEvent<HTMLInputElement>) => {
     inputEvent(event.target?.value)
   }
@@ -19,6 +20,7 @@ export const TextInput = ({label, value, isPassword, inputEvent}: Props) => {
         type={isPassword ? 'password' : 'text'}
         className="w-full"
         value={value}
+        disabled={disabled}
         onChange={event => sendValue(event)}
       ></input>
     </label>

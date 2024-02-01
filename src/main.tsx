@@ -17,10 +17,9 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "brightsdays",
-    element: <Journey />,
-    
-  },
+    path: "/adventures/:id",
+    element: <Journey />
+  }
 ])
 
 const store = configureStore({

@@ -4,11 +4,12 @@ interface Props {
   label?: string
   min?: number
   max?: number
+  disabled?: boolean
   value: number
   inputEvent: (data: number) => void
 }
 
-export const NumberInput = ({label, min, max, value, inputEvent}: Props) => {
+export const NumberInput = ({label, min, max, value, inputEvent, disabled}: Props) => {
   const sendValue = (event: ChangeEvent<HTMLInputElement>) => {
     inputEvent(+event.target?.value)
   }
@@ -22,6 +23,7 @@ export const NumberInput = ({label, min, max, value, inputEvent}: Props) => {
         min={min ? min : 0}
         max={max}
         value={value}
+        disabled={disabled}
         onChange={event => sendValue(event)}
       />
     </label>

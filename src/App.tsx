@@ -16,7 +16,6 @@ export const App = () => {
     supabase.auth.onAuthStateChange((event, session) => {
       const email = session?.user.email
       const id = session?.user.id
-      console.log(session?.user);
       
       if (email) dispatch({ type: 'get', payload: { email, id } })
     })

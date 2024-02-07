@@ -20,13 +20,13 @@ export const Journey = () => {
   const fetchAdventure = async () => {
     const { data, error } = await supabase
       .from('adventures')
-      .select()
+      .select('id, loremaster_id, adventure')
       .eq('id', id)
     
     if (error) {
       setFetchError('Could not fetch adventure :(')
-      // setJourney(null)
-    } else if (data) {
+      setAdventure(null)
+    } else if (data && data[0]) {
       setAdventure(data[0])
       setFetchError(null)
     }
@@ -49,7 +49,7 @@ export const Journey = () => {
   return (
     <div className='flex gap-5'>
       { adventure ? <h1>{ adventure.adventure }</h1> : <h1>{ fetchError }</h1>}
-      <Log editable={user.id === adventure?.loremaster_id} />
+      <Log logId={id} editable={user.id === adventure?.loremaster_id} />
       {/* <Company company={journey} />
       <Ponies /> */}
     </div>

@@ -19,7 +19,7 @@ export const TextInput = ({label, value, isPassword, inputEvent, disabled}: Prop
       <input
         type={isPassword ? 'password' : 'text'}
         className="w-full"
-        value={value}
+        value={value ? value : ''}
         disabled={disabled}
         onChange={event => sendValue(event)}
       ></input>

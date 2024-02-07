@@ -10,7 +10,6 @@ import { LogKeys } from "../../types"
 interface Props {
   logId: string
   editable: boolean
-  loremasterId: string
 }
 
 export const Log = ({ editable, logId }: Props) => {

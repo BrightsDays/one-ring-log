@@ -3,43 +3,42 @@ import { Card } from "../ui/Card"
 import { Player } from "./Player"
 import { PlayerStats } from "../../types"
 import supabase from "../../supabaseClient"
+import { useEffect, useState } from "react"
+import { Button } from "../ui/Button"
 
-export const Company = ({company}) => {
-  // const table = 'Company'
+interface Props {
+  logId: string
+  editable: boolean
+}
 
-  // const [fetchError, setFetchError] = useState<string | null>(null)
-  // const [company, setCompany] = useState<PlayerStats[] | null>(null)
+export const Company = ({ logId, editable }: Props) => {
+  const [fetchError, setFetchError] = useState<string | null>(null)
+  const [company, setCompany] = useState<PlayerStats[] | null>(null)
 
-  // const fetchCompany = async () => {
-  //   const { data, error } = await supabase
-  //     .from(table)
-  //     .select()
+  const fetchCompany = async () => {
+    const { data, error } = await supabase
+      .from('players')
+      .select('id, adventure_id, name, role, fatigue')
+      .eq('adventure_id', logId)
     
-  //   if (error) {
-  //     setFetchError('Could not fetch company :(')
-  //     setCompany(null)
-  //   } else if (data) {
-  //     setCompany(data)
-  //     setFetchError(null)
-  //   }
-  // }
+    if (error) {
+      setFetchError('Could not fetch company :(')
+      setCompany(null)
+    } else if (data) {
+      setCompany(data)
+      setFetchError(null)
+    }
+  }
 
-  // useEffect(() => {fetchCompany()}, [])
+  const addPlayer = async () => {
+    await supabase
+      .from('players')
+      .insert([{ adventure_id: logId, name: '', role: 'guide', fatigue: 0 }])
+    fetchCompany()
+  }
 
-  // const updateCompanyItem = async (data: PlayerStats) => {
-  //   const tempList = company?.map(item => item.id === data.id ? data : item)
-
-  //   if (tempList && JSON.stringify(tempList) !== JSON.stringify(company)) {
-  //     await supabase
-  //       .from(table)
-  //       .update({
-  //         name: data.name,
-  //         role: data.role,
-  //         fatigue: data.fatigue
-  //       })
-  //       .eq('id', data.id)
-  //   }
-  // }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchCompany() }, [])
 
   return (
     <Card title="The company">
@@ -49,7 +48,7 @@ export const Company = ({company}) => {
           <span>Journey role</span>
           <span>Travel fatigue</span>
         </div>
-        {/* {fetchError && <span className="text-red-500">{fetchError}</span>} */}
+        {fetchError && <span className="text-red-500">{fetchError}</span>}
         {company && company
           .sort((a, b) => a.id - b.id)
           .map(item => {
@@ -57,12 +56,13 @@ export const Company = ({company}) => {
               <Player
                 key={`player__${item.id}`}
                 player={item as PlayerStats}
-                // playerEvent={(data) => updateCompanyItem(data)}
-                playerEvent={(data) => console.log(data)}
+                editable={editable}
+                playerEvent={() => fetchCompany()}
               />
             )
           })
         }
+        {(company && editable && company.length < 7) && <Button text="Add player" buttonEvent={() => addPlayer()} />}
       </div>
     </Card>
   )

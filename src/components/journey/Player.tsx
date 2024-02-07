@@ -1,42 +1,58 @@
-import { FatigueList } from "./FatigueList"
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FatigueList } from "../ui/FatigueList"
 import { SelectInput } from "../ui/SelectInput"
 import { TextInput } from "../ui/TextInput"
-import { useState } from "react"
-import { PlayerStats, Roles } from "../../types"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { PlayerKeys, PlayerStats, Roles } from "../../types"
+import { Button } from "../ui/Button"
+import supabase from "../../supabaseClient"
 
 interface Props {
   player: PlayerStats
-  playerEvent: (data: PlayerStats) => void
+  editable: boolean
+  playerEvent: () => void
 }
 
-export const Player = ({player, playerEvent}: Props) => {
+export const Player = ({player, editable, playerEvent}: Props) => {
   const roles: Roles[] = ['guide', 'look-out', 'hunter', 'scout']
 
-  const [tempName, setName] = useState(player.name)
-  const [tempRole, setRole] = useState(player.role)
-  const [tempFatigue, setFatigue] = useState(player.fatigue)
+  const [name, setName] = useState(player.name)
+  const [role, setRole] = useState(player.role)
+  const [fatigue, setFatigue] = useState(player.fatigue)
 
-  useEffect(() => {
-    playerEvent({
-      id: player.id,
-      name: tempName,
-      role: tempRole,
-      fatigue: tempFatigue
-    })
-  }, [player, playerEvent, tempName, tempRole, tempFatigue])
+  const deletePlayer = async () => {
+    await supabase
+      .from('players')
+      .delete()
+      .eq('id', player.id)
+    playerEvent()
+  }
+
+  const updateData = async (key: PlayerKeys, value: number | string) => {
+    await supabase
+      .from('players')
+      .update({ [key]: value })
+      .eq('id', player.id)
+  }
+
+  useEffect(() => { updateData('name', name) }, [name])
+  useEffect(() => { updateData('role', role) }, [role])
+  useEffect(() => { updateData('fatigue', fatigue) }, [fatigue])
 
   return (
-    <div className="grid grid-cols-3 gap-2">
-      <TextInput value={tempName || ''} inputEvent={(value) => setName(value)} />
+    <div className={`grid grid-cols-${editable ? '4' : '3'} gap-2`}>
+      <TextInput disabled={!editable} value={name || ''} inputEvent={(value) => setName(value)} />
       <SelectInput
+        disabled={!editable}
         list={roles}
-        value={tempRole || ''}
+        value={role || ''}
         inputEvent={(value) => setRole(value as Roles)}
       />
       <FatigueList
-        fatigue={tempFatigue}
+        disabled={!editable}
+        fatigue={fatigue}
         fatigueEvent={(index, value) => setFatigue(!value ? index : index + 1)} />
+      {editable && <Button text="X" buttonEvent={() => deletePlayer()} />}
     </div>
   )
 }

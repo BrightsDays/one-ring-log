@@ -8,11 +8,11 @@ import supabase from "../../supabaseClient"
 import { LogKeys } from "../../types"
 
 interface Props {
-  logId: string
+  adventureId: string
   editable: boolean
 }
 
-export const Log = ({ editable, logId }: Props) => {
+export const Log = ({ editable, adventureId }: Props) => {
   const seasonList = ['winter', 'spring', 'summer', 'autumn']
 
   const [fetched, setFetched] = useState(false)
@@ -28,7 +28,7 @@ export const Log = ({ editable, logId }: Props) => {
     const { data, error } = await supabase
       .from('adventures')
       .select()
-      .eq('id', logId) 
+      .eq('id', adventureId) 
     
     if (error) {
       setFetchError('Could not fetch adventure log :(')
@@ -48,7 +48,7 @@ export const Log = ({ editable, logId }: Props) => {
     if (fetched) await supabase
       .from('adventures')
       .update({ [key]: value })
-      .eq('id', logId)
+      .eq('id', adventureId)
   }
 
   useEffect(() => { updateData('year', year) }, [year])

@@ -1,6 +1,6 @@
 import { Company } from './Company'
 import { Log } from './Log'
-// import { Ponies } from './Ponies'
+import { Animals } from './Animals'
 import supabase from "../../supabaseClient"
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -20,7 +20,6 @@ export const Journey = () => {
   const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [adventure, setAdventure] = useState<IAdventure | null>(null)
-  // const [journey, setJourney] = useState<string | null>(null)
   const { id } = useParams()
 
   const fetchAdventure = async () => {
@@ -50,15 +49,16 @@ export const Journey = () => {
       })
     }
     fetch()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className='flex gap-5 flex-col'>
       { adventure ? <h1>{ adventure.adventure }</h1> : <h1>{ fetchError }</h1>}
       <div className='flex gap-5'>
-        {id && <Log logId={id} editable={user.id === adventure?.loremaster_id} />}
-        <Company logId={id} editable={user.id === adventure?.loremaster_id} />
-        {/* <Ponies /> */}
+        {id && <Log adventureId={id} editable={user.id === adventure?.loremaster_id} />}
+        {id && <Company adventureId={id} editable={user.id === adventure?.loremaster_id} />}
+        {id && <Animals adventureId={id} editable={user.id === adventure?.loremaster_id} />}
       </div>
     </div>
   )

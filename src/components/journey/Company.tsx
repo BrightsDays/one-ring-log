@@ -7,11 +7,11 @@ import { useEffect, useState } from "react"
 import { Button } from "../ui/Button"
 
 interface Props {
-  logId: string
+  adventureId: string
   editable: boolean
 }
 
-export const Company = ({ logId, editable }: Props) => {
+export const Company = ({ adventureId, editable }: Props) => {
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
 
@@ -19,7 +19,7 @@ export const Company = ({ logId, editable }: Props) => {
     const { data, error } = await supabase
       .from('players')
       .select('id, adventure_id, name, role, fatigue')
-      .eq('adventure_id', logId)
+      .eq('adventure_id', adventureId)
     
     if (error) {
       setFetchError('Could not fetch company :(')
@@ -33,7 +33,7 @@ export const Company = ({ logId, editable }: Props) => {
   const addPlayer = async () => {
     await supabase
       .from('players')
-      .insert([{ adventure_id: logId, name: '', role: 'guide', fatigue: 0 }])
+      .insert([{ adventure_id: adventureId, name: '', role: 'guide', fatigue: 0 }])
     fetchCompany()
   }
 

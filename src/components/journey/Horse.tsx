@@ -22,20 +22,20 @@ export const Horse = ({ horse, editable, horseEvent }: Props) => {
       .delete()
       .eq('id', horse.id)
     horseEvent()
-  }
+  }// TODO: move deleteData from components to suabaseClient
 
   const updateData = async (key: 'name' | 'vigour', value: number | string) => {
     await supabase
       .from('animals')
       .update({ [key]: value })
       .eq('id', horse.id)
-  }
+  }// TODO: move updateData from components to suabaseClient
 
   useEffect(() => { updateData('name', name) }, [name])
   useEffect(() => { updateData('vigour', vigour) }, [vigour])
 
   return (
-    <div className={`grid grid-cols-${editable ? '3' : '2'} gap-2`}>
+    <div className="grid grid-cols-2 gap-2">
       <TextInput
         value={name}
         disabled={!editable}
@@ -47,7 +47,7 @@ export const Horse = ({ horse, editable, horseEvent }: Props) => {
         disabled={!editable}
         inputEvent={(value) => setVigour(value)}
       />
-      {editable && <Button text="X" buttonEvent={() => deleteHorse()} />}
+      {/* {editable && <Button text="X" buttonEvent={() => deleteHorse()} />} */}
     </div>
   )
 }

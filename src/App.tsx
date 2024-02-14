@@ -1,4 +1,3 @@
-import { Template } from "./components/ui/Template"
 import { AuthPage } from "./components/AuthPage"
 import { useSelector, useDispatch } from 'react-redux'
 import supabase from "./supabaseClient"
@@ -13,18 +12,19 @@ export const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabase.auth.onAuthStateChange((_event, session) => {
       const email = session?.user.email
       const id = session?.user.id
       
       if (email) dispatch({ type: 'get', payload: { email, id } })
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <Template>
+    <div>
       { !user.name ? <AuthPage /> : <PersonalArea /> }
-    </Template>
+    </div>
   )
 }
 

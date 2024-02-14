@@ -43,7 +43,7 @@ export const Company = ({ adventureId, editable }: Props) => {
   return (
     <Card title="The company">
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 text-black">
           <span>Name</span>
           <span>Journey role</span>
           <span>Travel fatigue</span>

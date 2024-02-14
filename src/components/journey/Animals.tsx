@@ -27,14 +27,14 @@ export const Animals = ({ adventureId, editable }: Props) => {
       setAnimals(data)
       setFetchError(null)
     }
-  }
+  }// TODO: move fetchData from components to suabaseClient
 
   const addAnimal = async () => {
     await supabase
       .from('animals')
       .insert([{ adventure_id: adventureId, name: '', vigour: 0 }])
     fetchAnimals()
-  }
+  }// TODO: move addData from components to suabaseClient
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchAnimals() }, [])
@@ -42,7 +42,7 @@ export const Animals = ({ adventureId, editable }: Props) => {
   return (
     <Card title="Ponies and horses">
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 text-black">
           <span>Name</span>
           <span>Vigour</span>
         </div>

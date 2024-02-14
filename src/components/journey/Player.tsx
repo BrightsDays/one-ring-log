@@ -40,7 +40,7 @@ export const Player = ({player, editable, playerEvent}: Props) => {
   useEffect(() => { updateData('fatigue', fatigue) }, [fatigue])
 
   return (
-    <div className={`grid grid-cols-${editable ? '4' : '3'} gap-2`}>
+    <div className="grid grid-cols-3 gap-2">
       <TextInput disabled={!editable} value={name || ''} inputEvent={(value) => setName(value)} />
       <SelectInput
         disabled={!editable}
@@ -52,7 +52,7 @@ export const Player = ({player, editable, playerEvent}: Props) => {
         disabled={!editable}
         fatigue={fatigue}
         fatigueEvent={(index, value) => setFatigue(!value ? index : index + 1)} />
-      {editable && <Button text="X" buttonEvent={() => deletePlayer()} />}
+      {/* {editable && <Button text="X" buttonEvent={() => deletePlayer()} />} */}
     </div>
   )
 }

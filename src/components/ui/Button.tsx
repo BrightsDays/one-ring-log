@@ -14,7 +14,10 @@ export const Button = ({text, buttonEvent}: Props) => {
 
   return (
     <button
+      className="border-solid border-2 border-orange-700 bg-transparent hover:bg-orange-200 font-[MiddleEarth] uppercase"
       onClick={event => clickHandler(event)}
-    >{text}</button>
+    >
+      {text}
+    </button>
   )
 }

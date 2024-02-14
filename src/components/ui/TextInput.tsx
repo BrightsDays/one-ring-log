@@ -14,11 +14,11 @@ export const TextInput = ({label, value, isPassword, inputEvent, disabled}: Prop
   }
 
   return (
-    <label className="flex flex-col items-start gap-1">
+    <label className="flex flex-col items-start gap-1 text-black">
       {label ? label + ':' : ''}
       <input
         type={isPassword ? 'password' : 'text'}
-        className="w-full"
+        className="w-full bg-transparent border-solid border-b-2 border-b-[#D0CACB] text-blue-800"
         value={value ? value : ''}
         disabled={disabled}
         onChange={event => sendValue(event)}

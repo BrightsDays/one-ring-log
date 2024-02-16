@@ -3,7 +3,7 @@ import { Log } from './Log'
 import { Animals } from './Animals'
 import supabase from "../../supabaseClient"
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState } from '../../reducers'
 import { Header } from '../ui/Header'
@@ -21,7 +21,10 @@ export const Journey = () => {
   const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [adventure, setAdventure] = useState<IAdventure | null>(null)
-  const { id } = useParams()
+
+  const search = useLocation().search
+  const searchParams = new URLSearchParams(search)
+  const id = searchParams.get('id')  
 
   const fetchAdventure = async () => {
     const { data, error } = await supabase

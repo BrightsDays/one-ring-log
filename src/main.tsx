@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/one-ring-log/adventures/:id",
+    path: "/one-ring-log/adventure/",
     element: <Journey />
   }
 ])

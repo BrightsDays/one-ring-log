@@ -1,6 +1,6 @@
 import supabase from "../supabaseClient"
 import { Button } from "./ui/Button"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { TextInput } from "./ui/TextInput"
 import { useEffect, useState } from "react"
 import { IRootState } from "../reducers"
@@ -18,12 +18,6 @@ export const PersonalArea = () => {
   const [adventureList, setAdventureList] = useState<IAdventureList>([])
 
   const user = useSelector(selectUser)
-  const dispatch = useDispatch()
-
-  const signOut = () => {
-    supabase.auth.signOut()
-    dispatch({ type: 'clear'})
-  }
 
   const getAdventures = async () => {
     const { data, error } = await supabase
@@ -58,10 +52,6 @@ export const PersonalArea = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex place-content-between">
-        <span>{ user.name }</span>
-        <Button text='OUT' buttonEvent={() => signOut()} />
-      </div>
       <div>
         <span>Your adventures:</span>
         <div className="flex flex-col">

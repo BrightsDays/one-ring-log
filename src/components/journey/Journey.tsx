@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState } from '../../reducers'
+import { Header } from '../ui/Header'
 
 type IAdventure = {
   id: string
@@ -55,7 +56,8 @@ export const Journey = () => {
   return (
     <div className='flex gap-5 flex-col'>
       { adventure ? 
-        <h1 className='font-[MiddleEarth]'>{ adventure.adventure }</h1> : 
+        <Header title={adventure.adventure} user={user.name} /> :
+        // <h1 className='font-[MiddleEarth]'>{ adventure.adventure }</h1> : 
         <h1>{ fetchError }</h1>
       }
       <div className='flex gap-1 py-2 border-solid border-y-2 border-y-orange-700'>

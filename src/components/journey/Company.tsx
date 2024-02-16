@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Card } from "../ui/Card"
 import { Player } from "./Player"
 import { PlayerStats } from "../../types"
@@ -19,11 +19,12 @@ export const Company = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
+  const [loremasterId, setLoremasterId] = useState<string | null>(null)
 
   const fetchCompany = async () => {
     const { data, error } = await supabase
       .from('players')
-      .select('id, adventure_id, name, role, fatigue')
+      .select('id, adventure_id, loremaster_id, name, role, fatigue')
       .eq('adventure_id', adventureId)
     
     if (error) {
@@ -32,6 +33,7 @@ export const Company = ({ adventureId, editable }: Props) => {
     } else if (data) {
       setCompany(data)
       setFetchError(null)
+      setLoremasterId(data[0].loremaster_id)
     }
   }
 
@@ -42,8 +44,24 @@ export const Company = ({ adventureId, editable }: Props) => {
     fetchCompany()
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchCompany() }, [])
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('realtime players')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'players'
+      }, () => {
+        fetchCompany()
+      })
+      .subscribe()      
+
+    if (loremasterId && user.id === loremasterId) {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase, loremasterId, user.id])//TODO: move channel from components to suabaseClient ?
 
   return (
     <Card title="The company">
@@ -59,7 +77,7 @@ export const Company = ({ adventureId, editable }: Props) => {
           .map(item => {
             return (
               <Player
-                key={`player__${item.id}`}
+                key={`${item.id}-${item.name}-${item.fatigue}-${item.role}`}
                 player={item as PlayerStats}
                 editable={editable}
                 playerEvent={() => fetchCompany()}

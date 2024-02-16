@@ -23,6 +23,7 @@ export const Log = ({ editable, adventureId }: Props) => {
   const [fetched, setFetched] = useState(false)
   const [fetchError, setFetchError] = useState<string | null>(null)
 
+  const [loremasterId, setLoremasterId] = useState<string | null>(null)
   const [year, setYear] = useState(2965)
   const [season, setSeason] = useState(seasonList[0])
   const [from, setFrom] = useState('')
@@ -44,13 +45,18 @@ export const Log = ({ editable, adventureId }: Props) => {
       setDestination(data[0].destination)
       setDays(data[0].days)
       setFetched(true)
+      setLoremasterId(data[0].loremaster_id)
 
       setFetchError(null)
     }
   }
 
+  const fetch = async () => {
+    await fetchLog()
+  }
+
   const updateData = async (key: LogKeys, value: number | string) => {
-    if (fetched) await supabase
+    if (fetched && user.id) await supabase
       .from('adventures')
       .update({ [key]: value, loremaster_id: user.id })
       .eq('id', adventureId)
@@ -63,11 +69,25 @@ export const Log = ({ editable, adventureId }: Props) => {
   useEffect(() => { updateData('days', days) }, [days])
 
   useEffect(() => {
-    const fetch = async () => {
-      await fetchLog()
-    }
     fetch()
   }, [])
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('realtime log')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'adventures'
+      }, () => {
+        fetch()
+      })
+      .subscribe()
+
+    if (fetched && user.id === loremasterId) {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase, loremasterId, user.id])
 
   return (
     <Card title="Journey Log">

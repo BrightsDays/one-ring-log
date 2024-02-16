@@ -58,7 +58,7 @@ export const PersonalArea = () => {
           { adventureList.map(item => {
             return (
               <div key={item.id} className="flex">
-                <Link to={`/adventures/${item.id}`}>{item.adventure}</Link>
+                <Link to={`/one-ring-log/adventures/${item.id}`}>{item.adventure}</Link>
                 <Button text="delete" buttonEvent={() => deleteAdventure(item.id)} />
               </div>
             )

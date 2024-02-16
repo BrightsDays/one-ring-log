@@ -13,11 +13,11 @@ import { Journey } from './components/journey/Journey.tsx'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/one-ring-log/",
     element: <App />,
   },
   {
-    path: "/adventures/:id",
+    path: "/one-ring-log/adventures/:id",
     element: <Journey />
   }
 ])

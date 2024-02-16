@@ -23,7 +23,7 @@ export const Header = ({ title, user }: Props) => {
           <span>{ user }</span>
           <button onClick={() => signOut()}>Log out</button>
         </div> :
-        <Link to='/'>To sign in page</Link>
+        <Link to='/one-ring-log/'>To sign in page</Link>
       }
     </header>
   )

@@ -5,6 +5,10 @@ import { PlayerStats } from "../../types"
 import supabase from "../../supabaseClient"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/Button"
+import { IRootState } from "../../reducers"
+import { useSelector } from "react-redux"
+
+const selectUser = (state: IRootState) => state.user
 
 interface Props {
   adventureId: string
@@ -12,6 +16,7 @@ interface Props {
 }
 
 export const Company = ({ adventureId, editable }: Props) => {
+  const user = useSelector(selectUser)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
 
@@ -33,7 +38,7 @@ export const Company = ({ adventureId, editable }: Props) => {
   const addPlayer = async () => {
     await supabase
       .from('players')
-      .insert([{ adventure_id: adventureId, name: '', role: 'guide', fatigue: 0 }])
+      .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', role: 'guide', fatigue: 0 }])
     fetchCompany()
   }
 

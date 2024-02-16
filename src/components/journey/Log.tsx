@@ -6,6 +6,10 @@ import { SelectInput } from "../ui/SelectInput"
 import { TextInput } from "../ui/TextInput"
 import supabase from "../../supabaseClient"
 import { LogKeys } from "../../types"
+import { IRootState } from "../../reducers"
+import { useSelector } from "react-redux"
+
+const selectUser = (state: IRootState) => state.user
 
 interface Props {
   adventureId: string
@@ -13,6 +17,7 @@ interface Props {
 }
 
 export const Log = ({ editable, adventureId }: Props) => {
+  const user = useSelector(selectUser)
   const seasonList = ['winter', 'spring', 'summer', 'autumn']
 
   const [fetched, setFetched] = useState(false)
@@ -47,7 +52,7 @@ export const Log = ({ editable, adventureId }: Props) => {
   const updateData = async (key: LogKeys, value: number | string) => {
     if (fetched) await supabase
       .from('adventures')
-      .update({ [key]: value })
+      .update({ [key]: value, loremaster_id: user.id })
       .eq('id', adventureId)
   }
 

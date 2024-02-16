@@ -4,6 +4,10 @@ import { Horse } from "./Horse"
 import supabase from "../../supabaseClient"
 import { AnimalStats } from "../../types"
 import { Button } from "../ui/Button"
+import { IRootState } from "../../reducers"
+import { useSelector } from "react-redux"
+
+const selectUser = (state: IRootState) => state.user
 
 interface Props {
   adventureId: string
@@ -11,6 +15,7 @@ interface Props {
 }
 
 export const Animals = ({ adventureId, editable }: Props) => {
+  const user = useSelector(selectUser)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [animals, setAnimals] = useState<AnimalStats[] | null>(null)
 
@@ -32,7 +37,7 @@ export const Animals = ({ adventureId, editable }: Props) => {
   const addAnimal = async () => {
     await supabase
       .from('animals')
-      .insert([{ adventure_id: adventureId, name: '', vigour: 0 }])
+      .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', vigour: 0 }])
     fetchAnimals()
   }// TODO: move addData from components to suabaseClient
 

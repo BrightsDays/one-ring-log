@@ -23,7 +23,7 @@ export const CheckboxInput = ({label, value, disabled, inputEvent}: Props) => {
         onChange={(event) => sendValue(event)}
       />
       <div
-        className="flex justify-center items-center w-4 h-4 border-solid border border-orange-700"
+        className="flex justify-center items-center w-4 h-4 border-solid border border-orange-700 cursor-pointer"
       >
         { value && <div className="w-3 h-3 rounded-full bg-orange-700" />}
       </div>

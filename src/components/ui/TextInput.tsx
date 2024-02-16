@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, ReactNode } from "react"
 
 interface Props {
   label?: string
@@ -6,15 +6,16 @@ interface Props {
   isPassword?: boolean
   disabled?: boolean
   inputEvent: (data: string) => void
+  children?: ReactNode
 }
 
-export const TextInput = ({label, value, isPassword, inputEvent, disabled}: Props) => {
+export const TextInput = ({label, value, isPassword, inputEvent, disabled, children }: Props) => {
   const sendValue = (event: ChangeEvent<HTMLInputElement>) => {
     inputEvent(event.target?.value)
   }
 
   return (
-    <label className="flex flex-col items-start gap-1 text-black">
+    <label className="relative flex flex-col items-start gap-1 text-black">
       {label ? label + ':' : ''}
       <input
         type={isPassword ? 'password' : 'text'}
@@ -22,7 +23,8 @@ export const TextInput = ({label, value, isPassword, inputEvent, disabled}: Prop
         value={value ? value : ''}
         disabled={disabled}
         onChange={event => sendValue(event)}
-      ></input>
+      />
+      <div className="absolute right-0" >{ children }</div>
     </label>
   )
 }

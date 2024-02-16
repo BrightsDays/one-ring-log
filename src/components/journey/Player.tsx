@@ -4,8 +4,8 @@ import { SelectInput } from "../ui/SelectInput"
 import { TextInput } from "../ui/TextInput"
 import { useEffect, useState } from "react"
 import { PlayerKeys, PlayerStats, Roles } from "../../types"
-import { Button } from "../ui/Button"
 import supabase from "../../supabaseClient"
+import { DeleteRowButton } from "../ui/DeleteRowButton"
 
 interface Props {
   player: PlayerStats
@@ -41,7 +41,12 @@ export const Player = ({player, editable, playerEvent}: Props) => {
 
   return (
     <div className="grid grid-cols-3 gap-2">
-      <TextInput disabled={!editable} value={name || ''} inputEvent={(value) => setName(value)} />
+      <TextInput disabled={!editable} value={name || ''} inputEvent={(value) => setName(value)}>
+        <DeleteRowButton
+          show={(!name.length && editable) ? true : false}
+          buttonEvent={() => deletePlayer()}
+        />
+      </TextInput>
       <SelectInput
         disabled={!editable}
         list={roles}
@@ -52,7 +57,6 @@ export const Player = ({player, editable, playerEvent}: Props) => {
         disabled={!editable}
         fatigue={fatigue}
         fatigueEvent={(index, value) => setFatigue(!value ? index : index + 1)} />
-      {/* {editable && <Button text="X" buttonEvent={() => deletePlayer()} />} */}
     </div>
   )
 }

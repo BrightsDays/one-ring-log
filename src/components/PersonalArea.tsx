@@ -2,7 +2,8 @@ import supabase from "../supabaseClient"
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from "react"
 import { IRootState } from "../reducers"
-import { IAdventure, ICharacter } from "../types"
+import { IAdventure } from "../types"
+// import { IAdventure, ICharacter } from "../types"
 import { EditableList } from "./EditableList"
 
 const selectUser = (state: IRootState) => state.user
@@ -10,8 +11,8 @@ const selectUser = (state: IRootState) => state.user
 export const PersonalArea = () => {
   const [adventure, setAdventure] = useState('')
   const [adventureList, setAdventureList] = useState<IAdventure[]>([])
-  const [character, setCharacter] = useState('')
-  const [characterList, setCharacterList] = useState<ICharacter[]>([])
+  // const [character, setCharacter] = useState('')
+  // const [characterList, setCharacterList] = useState<ICharacter[]>([])
 
   const user = useSelector(selectUser)
 
@@ -42,36 +43,36 @@ export const PersonalArea = () => {
     getAdventures()
   }
 
-  const getCharacters = async () => {
-    const { data, error } = await supabase
-      .from('characters')
-      .select('id, name')
-      .eq('loremaster_id', user.id)
+  // const getCharacters = async () => {
+  //   const { data, error } = await supabase
+  //     .from('characters')
+  //     .select('id, name')
+  //     .eq('loremaster_id', user.id)
 
-    if (!error) setCharacterList(data)
-  }
+  //   if (!error) setCharacterList(data)
+  // }
 
-  const addCharacter = async () => {
-    await supabase
-      .from('characters')
-      .insert([{ name: character, loremaster_id: user.id }])
+  // const addCharacter = async () => {
+  //   await supabase
+  //     .from('characters')
+  //     .insert([{ name: character, loremaster_id: user.id }])
 
-    getCharacters()
-    setCharacter('')
-  }
+  //   getCharacters()
+  //   setCharacter('')
+  // }
 
-  const deleteCharacter = async (id: string) => {
-    await supabase
-      .from('characters')
-      .delete()
-      .eq('id', id)
+  // const deleteCharacter = async (id: string) => {
+  //   await supabase
+  //     .from('characters')
+  //     .delete()
+  //     .eq('id', id)
 
-    getCharacters()
-  }
+  //   getCharacters()
+  // }
 
   useEffect(() => {
     getAdventures()
-    getCharacters()
+    // getCharacters()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

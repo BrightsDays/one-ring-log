@@ -32,7 +32,7 @@ export const App = () => {
             One Ring Logger is a web application that helps Loremasters run games 
             and helps players save character data.
           </span>
-          <img className="max-w-[320px]" src={ring} alt="ring" />
+          <img className="max-w-[320px] hidden sm:block" src={ring} alt="ring" />
           <span className="text-center sm:text-left">
             Game released by <a href="https://freeleaguepublishing.com" target="_blank">Free League Publishing</a>
             <br />

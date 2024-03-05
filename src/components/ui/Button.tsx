@@ -2,10 +2,11 @@ import React from "react"
 
 interface Props {
   text: string
+  size?: 'small' | 'regular'
   buttonEvent: () => void
 }
 
-export const Button = ({text, buttonEvent}: Props) => {
+export const Button = ({text, size, buttonEvent}: Props) => {
   const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
     event.stopPropagation()
@@ -14,7 +15,10 @@ export const Button = ({text, buttonEvent}: Props) => {
 
   return (
     <button
-      className="border-solid border-2 border-orange-700 bg-transparent hover:bg-orange-200 font-[MiddleEarth] uppercase"
+      className={
+        `${size === 'small' ? 'p-1 text-sm border-1 ' : 'border-2 ' } 
+        border-solid border-orange-700 bg-transparent hover:bg-orange-200 hover:border-orange-700 font-[MiddleEarth] uppercase`
+      }
       onClick={event => clickHandler(event)}
     >
       {text}

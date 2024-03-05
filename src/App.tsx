@@ -24,20 +24,19 @@ export const App = () => {
   }, [])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-3">
       { user.name && <Header user={user.name} /> }
-      <div className="flex justify-center gap-10">
-        <div className="flex max-w-[320px] flex-col">
-          <span className="mt-3">
+      <div className="flex justify-center gap-3 flex-col sm:flex-row sm:gap-10">
+        <div className="flex sm:max-w-[320px] flex-col">
+          <span className="mt-3 text-center sm:text-left">
             One Ring Logger is a web application that helps Loremasters run games 
             and helps players save character data.
           </span>
-          <img className="max-w-[320px] mt-3" src={ring} alt="ring" />
-          <span className="mt-3">
+          <img className="max-w-[320px] mt-3 m-auto" src={ring} alt="ring" />
+          <span className="mt-3 text-center sm:text-left">
             Game released by <a href="https://freeleaguepublishing.com" target="_blank">Free League Publishing</a>
             <br />
-            Official game page:
-            <a href="https://freeleaguepublishing.com/games/the-one-ring/" target="_blank">The One Ring</a><br />
+            Official game page: <a href="https://freeleaguepublishing.com/games/the-one-ring/" target="_blank">The One Ring</a><br />
             Application by <a href="https://brightsdays.github.io" target="_blank">brightsdays</a>
           </span>
         </div>

@@ -32,7 +32,7 @@ export const Animals = ({ adventureId, editable }: Props) => {
     } else if (data) {
       setAnimals(data)
       setFetchError(null)
-      setLoremasterId(data[0].loremaster_id)
+      if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
     }
   }// TODO: move fetchData from components to suabaseClient
 

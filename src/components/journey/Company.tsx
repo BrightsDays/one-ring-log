@@ -33,7 +33,7 @@ export const Company = ({ adventureId, editable }: Props) => {
     } else if (data) {
       setCompany(data)
       setFetchError(null)
-      setLoremasterId(data[0].loremaster_id)
+      if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
     }
   }
 

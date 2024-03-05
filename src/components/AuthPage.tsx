@@ -7,7 +7,7 @@ export const AuthPage = () => {
     <>
       <Auth
         supabaseClient={supabase}
-        providers={[]}
+        providers={['google', 'github', 'facebook']}
         appearance={{ theme: ThemeSupa,
         variables: {
           default: {

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { PersonalArea } from "./components/PersonalArea"
 import { IRootState } from "./reducers"
 import { Header } from "./components/Header"
+import ring from './assets/ring.png'
 
 const selectUser = (state: IRootState) => state.user
 
@@ -24,17 +25,21 @@ export const App = () => {
 
   return (
     <div className="flex flex-col">
-      <Header user={user.name} />
-      <div className="flex justify-center gap-5">
-        <div className="flex min-w-[320px] flex-col">
-          <span>
-            This app is a One Ring app
+      { user.name && <Header user={user.name} /> }
+      <div className="flex justify-center gap-10">
+        <div className="flex max-w-[320px] flex-col">
+          <span className="mt-3">
+            One Ring Logger is a web application that helps Loremasters run games 
+            and helps players save character data.
           </span>
-          <p>
-            Some info about app will be here.<br/>
-            And image.<br/>
-            And links.
-          </p>
+          <img className="max-w-[320px] mt-3" src={ring} alt="ring" />
+          <span className="mt-3">
+            Game released by <a href="https://freeleaguepublishing.com" target="_blank">Free League Publishing</a>
+            <br />
+            Official game page:
+            <a href="https://freeleaguepublishing.com/games/the-one-ring/" target="_blank">The One Ring</a><br />
+            Application by <a href="https://brightsdays.github.io" target="_blank">brightsdays</a>
+          </span>
         </div>
         <div className="min-w-[320px]">
           { !user.name ? <AuthPage /> : <PersonalArea /> }

@@ -22,16 +22,19 @@ export const App = () => {
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  // TODO: minimize ring images
   return (
     <div className="flex flex-col p-3">
       { user.name && <Header user={user.name} /> }
       <div className="flex justify-center gap-3 flex-col sm:flex-row sm:gap-10">
         <div className="flex sm:max-w-[320px] flex-col gap-3 pt-3 pb-3 items-center">
-          <span className="text-center sm:text-left">
-            One Ring Logger is a web application that helps Loremasters run games 
-            and helps players save character data.
-          </span>
+          <div className="flex gap-1">
+            <img className="max-w-[90px] block sm:hidden" src={ring} alt="ring" />
+            <span>
+              One Ring Logger is a web application that helps Loremasters run games 
+              and helps players save character data.
+            </span>
+          </div>
           <img className="max-w-[320px] hidden sm:block" src={ring} alt="ring" />
           <span className="text-center sm:text-left">
             Game released by <a href="https://freeleaguepublishing.com" target="_blank">Free League Publishing</a>

@@ -22,7 +22,7 @@ export const Header = ({ title, user }: Props) => {
       { user ?
         <div className="flex gap-2 items-center">
           <span className="hidden sm:block">{ user }</span>
-          <Button text="Log out" size="small" buttonEvent={() => signOut()} />
+          <Button text="log out" size="small" buttonEvent={() => signOut()} />
         </div> :
         <Link to='/one-ring-log/'>To sign in page</Link>
       }

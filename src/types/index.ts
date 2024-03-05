@@ -1,3 +1,13 @@
+export type IAdventure = {
+  id: string
+  adventure: string
+}
+
+export type ICharacter = {
+  id: string
+  name: string
+}
+
 export type PlayerStats = {
   id: number
   name: string

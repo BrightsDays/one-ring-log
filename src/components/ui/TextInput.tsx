@@ -2,6 +2,7 @@ import { ChangeEvent, ReactNode } from "react"
 
 interface Props {
   label?: string
+  placeholder?: string
   value: string
   isPassword?: boolean
   disabled?: boolean
@@ -9,18 +10,21 @@ interface Props {
   children?: ReactNode
 }
 
-export const TextInput = ({label, value, isPassword, inputEvent, disabled, children }: Props) => {
+export const TextInput = ({label, placeholder, value, isPassword, inputEvent, disabled, children }: Props) => {
   const sendValue = (event: ChangeEvent<HTMLInputElement>) => {
     inputEvent(event.target?.value)
   }
 
   return (
-    <label className="relative flex flex-col items-start gap-1 text-black">
+    <label
+      className={`${label ? 'gap-1 ' : ''}relative flex flex-col items-start text-black flex-1`}
+    >
       {label ? label + ':' : ''}
       <input
         type={isPassword ? 'password' : 'text'}
-        className="w-full bg-transparent border-solid border-b-2 border-b-[#D0CACB] text-blue-800"
+        className="w-full bg-transparent border-solid border-b border-b-[#D0CACB] text-blue-800 h-full"
         value={value ? value : ''}
+        placeholder={placeholder}
         disabled={disabled}
         onChange={event => sendValue(event)}
       />

@@ -45,6 +45,9 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  @media screen and (max-width: 640px) {
+    place-items: start;
+  }
 }
 
 h1 {

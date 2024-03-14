@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react"
-import { Card } from "../ui/Card"
-import { Horse } from "./Horse"
-import supabase from "../../supabaseClient"
-import { AnimalStats } from "../../types"
-import { Button } from "../ui/Button"
-import { IRootState } from "../../reducers"
+import { Card } from "../../ui/Card"
+import { Animal } from "./Animal"
+import supabase from "../../../supabase/supabaseClient"
+import { AnimalStats, UpdateAnimalData } from "../../../types"
+import { Button } from "../../ui/Button"
+import { RootState } from "../../../store/reducers"
 import { useSelector } from "react-redux"
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user
 
 interface Props {
   adventureId: string
   editable: boolean
 }
 
-export const Animals = ({ adventureId, editable }: Props) => {
+export const AnimalList = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [animals, setAnimals] = useState<AnimalStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
 
-  const fetchAnimals = async () => {
+  const getAnimals = async () => {
     const { data, error } = await supabase
       .from('animals')
       .select('id, adventure_id, loremaster_id, name, vigour')
@@ -34,29 +34,44 @@ export const Animals = ({ adventureId, editable }: Props) => {
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
     }
-  }// TODO: move fetchData from components to suabaseClient
+  }
 
-  const addAnimal = async () => {
+  const createAnimal = async () => {
     await supabase
       .from('animals')
       .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', vigour: 0 }])
-    fetchAnimals()
-  }// TODO: move addData from components to suabaseClient
+    getAnimals()
+  }
+
+  const updateAnimal = async (data: UpdateAnimalData) => {
+    await supabase
+      .from('animals')
+      .update({ [data.key]: data.value })
+      .eq('id', data.id)
+  }
+
+  const deleteAnimal = async (id: number) => {
+    await supabase
+      .from('animals')
+      .delete()
+      .eq('id', id)
+    getAnimals()
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchAnimals() }, [])
+  useEffect(() => { getAnimals() }, [])
 
   useEffect(() => {
     const channel = supabase
-      .channel('realtime anumals')
+      .channel('realtime animals')
       .on('postgres_changes', {
         event: '*',
         schema: 'public',
         table: 'animals'
       }, () => {
-        fetchAnimals()
+        getAnimals()
       })
-      .subscribe()      
+      .subscribe()
 
     if (loremasterId && user.id === loremasterId) {
       supabase.removeChannel(channel)
@@ -75,15 +90,16 @@ export const Animals = ({ adventureId, editable }: Props) => {
         {animals && animals
           .sort((a, b) => a.id - b.id)
           .map(item =>
-            <Horse
+            <Animal
               key={`${item.id}-${item.name}-${item.vigour}`}
               horse={item}
               editable={editable}
-              horseEvent={() => fetchAnimals()}
+              updateEvent={(data) => updateAnimal(data)}
+              deleteEvent={(value) => deleteAnimal(value)}
             />
           )
         }
-        {(animals && editable && animals.length < 7) && <Button text="Add animal" buttonEvent={() => addAnimal()} />}
+        {(animals && editable && animals.length < 7) && <Button text="Add animal" buttonEvent={() => createAnimal()} />}
       </div>
     </Card>
   )

@@ -1,26 +1,27 @@
-import { Company } from './Company'
+import { PlayerList } from './players/PlayerList.tsx'
 import { Log } from './Log'
-import { Animals } from './Animals'
-import supabase from "../../supabaseClient"
+import { AnimalList } from './animals/AnimalList'
+import supabase from "../../supabase/supabaseClient"
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { IRootState } from '../../reducers'
+import { RootState } from '../../store/reducers'
 import { Header } from '../Header'
+import { ItemsList } from './items/ItemsLIst.tsx'
 
-type IAdventure = {
+type Adventure = {
   id: string
   adventure: string
   loremaster_id: string
 }
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user
 
 export const Journey = () => {
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
-  const [adventure, setAdventure] = useState<IAdventure | null>(null)
+  const [adventure, setAdventure] = useState<Adventure | null>(null)
 
   const search = useLocation().search
   const searchParams = new URLSearchParams(search)
@@ -60,13 +61,18 @@ export const Journey = () => {
     <div className='flex flex-col p-3'>
       { adventure ? 
         <Header title={adventure.adventure} user={user.name} /> :
-        // <h1 className='font-[MiddleEarth]'>{ adventure.adventure }</h1> : 
         <h1>{ fetchError }</h1>
       }
-      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid border-y-2 border-y-orange-700'>
+      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid sm:border-y-2 border-y-orange-700'>
         {id && <Log adventureId={id} editable={user.id === adventure?.loremaster_id} />}
-        {id && <Company adventureId={id} editable={user.id === adventure?.loremaster_id} />}
-        {id && <Animals adventureId={id} editable={user.id === adventure?.loremaster_id} />}
+        {id && <PlayerList adventureId={id} editable={user.id === adventure?.loremaster_id} />}
+        {id && <AnimalList adventureId={id} editable={user.id === adventure?.loremaster_id} />}
+      </div>
+      <div className='sm:pt-1 pb-3 text-center'>
+        <h2 className='font-[MiddleEarth] text-2xl sm:text-3xl lowercase'>Famous weapons</h2>
+      </div>
+      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid border-y-2 border-y-orange-700'>
+        <ItemsList />
       </div>
     </div>
   )

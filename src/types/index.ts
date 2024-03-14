@@ -1,9 +1,9 @@
-export type IAdventure = {
+export type Adventure = {
   id: string
   adventure: string
 }
 
-export type ICharacter = {
+export type Character = {
   id: string
   name: string
 }
@@ -15,10 +15,22 @@ export type PlayerStats = {
   fatigue: number
 }
 
+export type UpdatePlaterData = {
+  id: number
+  key: PlayerKeys
+  value: string | number 
+}
+
 export type AnimalStats = {
   id: number
   name: string
   vigour: number
+}
+
+export type UpdateAnimalData = {
+  id: number
+  key: 'name' | 'vigour'
+  value: string | number 
 }
 
 export type LogKeys = 'year' | 'season' | 'from' | 'destination' | 'days'

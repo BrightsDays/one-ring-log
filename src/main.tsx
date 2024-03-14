@@ -4,12 +4,12 @@ import App from './App.tsx'
 import './index.css'
 import { Provider } from 'react-redux'
 import { configureStore, Tuple } from '@reduxjs/toolkit'
-import rootReducer from './reducers.ts'
+import rootReducer from './store/reducers.ts'
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
-import { Journey } from './components/journey/Journey.tsx'
+import { Journey } from './components/adventure/Journey.tsx'
 
 const router = createBrowserRouter([
   {

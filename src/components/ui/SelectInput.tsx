@@ -17,7 +17,7 @@ export const SelectInput = ({label, value, list, inputEvent, disabled}: Props) =
     <label className="flex flex-col items-start gap-1 text-black">
       {label ? label + ':' : ''}
       <select
-        className="w-full h-full bg-transparent border-solid border-b-2 border-b-[#D0CACB] text-blue-800"
+        className="w-full h-full bg-transparent border-solid border-b border-b-[#D0CACB] text-blue-800"
         value={value}
         disabled={disabled}
         onChange={event => sendValue(event)}

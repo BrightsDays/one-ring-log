@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
-import { IAdventure, ICharacter } from "../types"
+import { Adventure, Character } from "../types"
 import { DeleteRowButton } from "./ui/DeleteRowButton"
 import { TextInput } from "./ui/TextInput"
 import { Button } from "./ui/Button"
 
 interface Props {
   listType: 'adventure' | 'character'
-  list: IAdventure[] | ICharacter[]
+  list: Adventure[] | Character[]
   maxLength: number
   listEvent: (id: string) => void
   value: string
@@ -24,8 +24,8 @@ export const EditableList = ({ listType, list, maxLength, listEvent, value, setE
             <div key={item.id} className="flex justify-between border-b pb-1">
               <Link to={`/one-ring-log/adventure?id=${item.id}`}>
                 { listType === 'adventure' ?
-                  (item as IAdventure).adventure :
-                  (item as ICharacter).name
+                  (item as Adventure).adventure :
+                  (item as Character).name
                 }
               </Link>
               <DeleteRowButton show={true} buttonEvent={() => listEvent(item.id)} />

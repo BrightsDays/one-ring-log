@@ -1,6 +1,6 @@
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import supabase from "../supabaseClient"
+import supabase from "../supabase/supabaseClient"
 
 export const AuthPage = () => {
   return (

@@ -1,27 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card } from "../ui/Card"
+import { Card } from "../../ui/Card"
 import { Player } from "./Player"
-import { PlayerStats } from "../../types"
-import supabase from "../../supabaseClient"
+import { PlayerStats, UpdatePlaterData } from "../../../types"
+import supabase from "../../../supabase/supabaseClient"
 import { useEffect, useState } from "react"
-import { Button } from "../ui/Button"
-import { IRootState } from "../../reducers"
+import { Button } from "../../ui/Button"
+import { RootState } from "../../../store/reducers"
 import { useSelector } from "react-redux"
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user//TODO: use check as utility in main app
 
 interface Props {
   adventureId: string
   editable: boolean
 }
 
-export const Company = ({ adventureId, editable }: Props) => {
+export const PlayerList = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
 
-  const fetchCompany = async () => {
+  const getPlayers = async () => {
     const { data, error } = await supabase
       .from('players')
       .select('id, adventure_id, loremaster_id, name, role, fatigue')
@@ -41,10 +41,25 @@ export const Company = ({ adventureId, editable }: Props) => {
     await supabase
       .from('players')
       .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', role: 'guide', fatigue: 0 }])
-    fetchCompany()
+    getPlayers()
   }
 
-  useEffect(() => { fetchCompany() }, [])
+  const updatePlayer = async (data: UpdatePlaterData) => {
+    await supabase
+      .from('players')
+      .update({ [data.key]: data.value })
+      .eq('id', data.id)
+  }
+
+  const deletePlayer = async (id: number) => {
+    await supabase
+      .from('players')
+      .delete()
+      .eq('id', id)
+    getPlayers()
+  }
+
+  useEffect(() => { getPlayers() }, [])
 
   useEffect(() => {
     const channel = supabase
@@ -54,14 +69,14 @@ export const Company = ({ adventureId, editable }: Props) => {
         schema: 'public',
         table: 'players'
       }, () => {
-        fetchCompany()
+        getPlayers()
       })
       .subscribe()      
 
     if (loremasterId && user.id === loremasterId) {
       supabase.removeChannel(channel)
     }
-  }, [supabase, loremasterId, user.id])//TODO: move channel from components to suabaseClient ?
+  }, [supabase, loremasterId, user.id])
 
   return (
     <Card title="The company">
@@ -80,7 +95,8 @@ export const Company = ({ adventureId, editable }: Props) => {
                 key={`${item.id}-${item.name}-${item.fatigue}-${item.role}`}
                 player={item as PlayerStats}
                 editable={editable}
-                playerEvent={() => fetchCompany()}
+                updateEvent={(data) => updatePlayer(data)}
+                deleteEvent={(value) => deletePlayer(value)}
               />
             )
           })

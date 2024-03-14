@@ -1,13 +1,13 @@
 import { AuthPage } from "./components/AuthPage"
 import { useSelector, useDispatch } from 'react-redux'
-import supabase from "./supabaseClient"
+import supabase from "./supabase/supabaseClient"
 import { useEffect } from "react"
 import { PersonalArea } from "./components/PersonalArea"
-import { IRootState } from "./reducers"
+import { RootState } from "./store/reducers"
 import { Header } from "./components/Header"
 import ring from './assets/ring.png'
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user
 
 export const App = () => {
   const user = useSelector(selectUser)

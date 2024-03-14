@@ -9,7 +9,7 @@ export const DeleteRowButton = ({ show, buttonEvent }: Props) => {
   return (
     <>
       {show ?
-        <button className="block bg-transparent p-0 border-0" onClick={() => buttonEvent()}>
+        <button className="block w-5 bg-transparent p-0 border-0" onClick={() => buttonEvent()}>
           <img className="h-5" src={trash} alt="trash" />
         </button> : 
         <button className="block bg-transparent p-0 border-0 opacity-30 cursor-auto">

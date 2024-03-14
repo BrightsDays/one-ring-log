@@ -1,18 +1,18 @@
-import supabase from "../supabaseClient"
+import supabase from "../supabase/supabaseClient"
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from "react"
-import { IRootState } from "../reducers"
-import { IAdventure } from "../types"
-// import { IAdventure, ICharacter } from "../types"
+import { RootState } from "../store/reducers"
+import { Adventure } from "../types"
+// import { Adventure, Character } from "../types"
 import { EditableList } from "./EditableList"
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user
 
 export const PersonalArea = () => {
   const [adventure, setAdventure] = useState('')
-  const [adventureList, setAdventureList] = useState<IAdventure[]>([])
+  const [adventureList, setAdventureList] = useState<Adventure[]>([])
   // const [character, setCharacter] = useState('')
-  // const [characterList, setCharacterList] = useState<ICharacter[]>([])
+  // const [characterList, setCharacterList] = useState<Character[]>([])
 
   const user = useSelector(selectUser)
 

@@ -4,12 +4,12 @@ import { Card } from "../ui/Card"
 import { NumberInput } from "../ui/NumberInput"
 import { SelectInput } from "../ui/SelectInput"
 import { TextInput } from "../ui/TextInput"
-import supabase from "../../supabaseClient"
+import supabase from "../../supabase/supabaseClient"
 import { LogKeys } from "../../types"
-import { IRootState } from "../../reducers"
+import { RootState } from "../../store/reducers"
 import { useSelector } from "react-redux"
 
-const selectUser = (state: IRootState) => state.user
+const selectUser = (state: RootState) => state.user
 
 interface Props {
   adventureId: string

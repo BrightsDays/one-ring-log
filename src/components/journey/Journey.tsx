@@ -57,13 +57,13 @@ export const Journey = () => {
   }, [])
 
   return (
-    <div className='flex gap-5 flex-col'>
+    <div className='flex flex-col p-3'>
       { adventure ? 
         <Header title={adventure.adventure} user={user.name} /> :
         // <h1 className='font-[MiddleEarth]'>{ adventure.adventure }</h1> : 
         <h1>{ fetchError }</h1>
       }
-      <div className='flex gap-1 py-2 border-solid border-y-2 border-y-orange-700'>
+      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid border-y-2 border-y-orange-700'>
         {id && <Log adventureId={id} editable={user.id === adventure?.loremaster_id} />}
         {id && <Company adventureId={id} editable={user.id === adventure?.loremaster_id} />}
         {id && <Animals adventureId={id} editable={user.id === adventure?.loremaster_id} />}

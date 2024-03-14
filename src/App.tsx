@@ -26,7 +26,7 @@ export const App = () => {
   return (
     <div className="flex flex-col p-3">
       { user.name && <Header user={user.name} /> }
-      <div className="flex justify-center gap-3 flex-col sm:flex-row sm:gap-10">
+      <div className="flex justify-center gap-3 flex-col sm:flex-row sm:gap-10 border-y-2 border-y-orange-700">
         <div className="flex sm:max-w-[320px] flex-col gap-3 pt-3 pb-3 items-center">
           <div className="flex gap-1">
             <img className="max-w-[90px] block sm:hidden" src={ring} alt="ring" />

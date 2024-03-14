@@ -7,7 +7,7 @@ interface Props {
 
 export const Card = (props: Props) => {
   return (
-    <section className="flex flex-col gap-5 p-5 border-solid border-x-2 border-x-orange-700">
+    <section className="flex flex-col gap-2 sm:gap-5 sm:p-5 py-3 border-solid border-b-2 sm:border-b-0 sm:border-x-2 border-orange-700">
       <h2 className="font-[MiddleEarth] text-3xl text-center lowercase">{props.title}</h2>
       {props.children}
     </section>

@@ -17,7 +17,7 @@ export const Header = ({ title, user }: Props) => {
   }
 
   return (
-    <header className="flex justify-between border-solid border-b-2 border-y-orange-700 pb-3">
+    <header className="flex justify-between border-solid pb-3">
       <h1 className='font-[MiddleEarth] text-xl sm:text-3xl'>{ title ? title : 'One Ring Logger' }</h1>
       { user ?
         <div className="flex gap-2 items-center">

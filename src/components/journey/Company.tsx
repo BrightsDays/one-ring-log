@@ -66,10 +66,10 @@ export const Company = ({ adventureId, editable }: Props) => {
   return (
     <Card title="The company">
       <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-3 gap-2 text-black">
+        <div className="grid sm:grid-cols-3 grid-cols-2 gap-2 text-black">
           <span>Name</span>
           <span>Journey role</span>
-          <span>Travel fatigue</span>
+          <span className="hidden sm:block">Travel fatigue</span>
         </div>
         {fetchError && <span className="text-red-500">{fetchError}</span>}
         {company && company

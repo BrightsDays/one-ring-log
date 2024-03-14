@@ -8,7 +8,8 @@ interface Props {
 
 export const FatigueList = ({fatigue, disabled, fatigueEvent}: Props) => {
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex gap-1 items-center mb-2 sm:mb-0">
+      <span className="sm:hidden text-black whitespace-nowrap">Travel fatigue: </span>
       { Array.from(Array(10).keys()).map((index) => {
           return (
             <CheckboxInput

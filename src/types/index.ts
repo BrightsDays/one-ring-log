@@ -33,6 +33,23 @@ export type UpdateAnimalData = {
   value: string | number 
 }
 
+export type ItemStats = {
+  id: number
+  player_hero: string
+  item: string
+  type: string
+  craftsmanship: string
+  bane: string
+  qualities: string
+}
+
+export type UpdateItemData = {
+  id: number
+  key: ItemKeys
+  value: string
+}
+
 export type LogKeys = 'year' | 'season' | 'from' | 'destination' | 'days'
 export type PlayerKeys = 'name' | 'role' | 'fatigue'
 export type Roles = 'guide' | 'look-out' | 'hunter' | 'scout'
+export type ItemKeys = 'player_hero' | 'item' | 'type' | 'craftsmanship' | 'bane' | 'qualities'

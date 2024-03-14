@@ -63,7 +63,7 @@ export const Journey = () => {
         <Header title={adventure.adventure} user={user.name} /> :
         <h1>{ fetchError }</h1>
       }
-      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid sm:border-y-2 border-y-orange-700'>
+      <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid border-t-2 sm:border-b-2 border-y-orange-700'>
         {id && <Log adventureId={id} editable={user.id === adventure?.loremaster_id} />}
         {id && <PlayerList adventureId={id} editable={user.id === adventure?.loremaster_id} />}
         {id && <AnimalList adventureId={id} editable={user.id === adventure?.loremaster_id} />}
@@ -72,7 +72,7 @@ export const Journey = () => {
         <h2 className='font-[MiddleEarth] text-2xl sm:text-3xl lowercase'>Famous weapons</h2>
       </div>
       <div className='flex flex-col sm:flex-row gap-1 py-2 border-solid border-y-2 border-y-orange-700'>
-        <ItemsList />
+        {id && <ItemsList adventureId={id} editable={user.id === adventure?.loremaster_id}  />}
       </div>
     </div>
   )

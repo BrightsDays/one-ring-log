@@ -8,7 +8,7 @@ import { Button } from "../../ui/Button"
 import { RootState } from "../../../store/reducers"
 import { useSelector } from "react-redux"
 
-const selectUser = (state: RootState) => state.user
+const selectUser = (state: RootState) => state.user//TODO: use check as utility in main app
 
 interface Props {
   adventureId: string

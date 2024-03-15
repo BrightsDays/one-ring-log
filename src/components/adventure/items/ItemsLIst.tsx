@@ -94,7 +94,7 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
         .map(item => {
           return (
             <Item
-              key={`${item.id}-${item.player_hero}-${item.item}-${item.type}`}
+              key={`${item.id}-${item.player_hero}-${item.item}-${item.type}-${item.bane}-${item.qualities}-${item.craftsmanship}`}
               item={item as ItemStats}
               editable={editable}
               updateEvent={(data) => updateItem(data)}

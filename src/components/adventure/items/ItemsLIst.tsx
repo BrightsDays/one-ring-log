@@ -89,21 +89,21 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-1">
       {fetchError && <span className="text-red-500">{fetchError}</span>}
-        {items && items
-          .sort((a, b) => a.id - b.id)
-          .map(item => {
-            return (
-              <Item
-                key={`${item.id}-${item.player_hero}-${item.item}-${item.type}`}
-                item={item as ItemStats}
-                editable={editable}
-                updateEvent={(data) => updateItem(data)}
-                deleteEvent={(value) => deleteItem(value)}
-              />
-            )
-          })
-        }
-        {(items && editable && items.length < 6) && <Button text="Add item" buttonEvent={() => addItem()} />}
+      {items && items
+        .sort((a, b) => a.id - b.id)
+        .map(item => {
+          return (
+            <Item
+              key={`${item.id}-${item.player_hero}-${item.item}-${item.type}`}
+              item={item as ItemStats}
+              editable={editable}
+              updateEvent={(data) => updateItem(data)}
+              deleteEvent={(value) => deleteItem(value)}
+            />
+          )
+        })
+      }
+      {(items && editable && items.length < 6) && <Button text="Add item" buttonEvent={() => addItem()} />}
     </div>
   )
 }

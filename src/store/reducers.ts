@@ -16,6 +16,7 @@ const userReducer = (state = userState, action: PayloadAction<{email: string, id
     case 'clear':
       return {
         ...state,
+        id: null,
         name: null
       }
     default:

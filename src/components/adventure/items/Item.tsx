@@ -14,13 +14,17 @@ interface Props {
 export const Item = ({ item, editable, updateEvent, deleteEvent }: Props) => {
   const [playerHero, setPlayerHero] = useState(item.player_hero)
   const [itemName, setItemName] = useState(item.item)
-  const [itemType, setItemType] = useState(item.type)
-  const [craftsmanship, setCraftsmanship] = useState(item.craftsmanship)
-  const [bane, setBane] = useState(item.bane)
-  const [qualities, setQualities] = useState(item.qualities)
+  const [itemType, setItemType] = useState(item.type)//TODO: use select with types
+  const [craftsmanship, setCraftsmanship] = useState(item.craftsmanship)//TODO: use select with craftsmans
+  const [bane, setBane] = useState(item.bane)//TODO: use select with banes
+  const [qualities, setQualities] = useState(item.qualities)//TODO: use multiselect with tags
 
   useEffect(() => { updateEvent({id: item.id, key: 'player_hero', value: playerHero}) }, [playerHero])
   useEffect(() => { updateEvent({id: item.id, key: 'item', value: itemName}) }, [itemName])
+  useEffect(() => { updateEvent({id: item.id, key: 'type', value: itemType}) }, [itemType])
+  useEffect(() => { updateEvent({id: item.id, key: 'craftsmanship', value: craftsmanship}) }, [craftsmanship])
+  useEffect(() => { updateEvent({id: item.id, key: 'bane', value: bane}) }, [bane])
+  useEffect(() => { updateEvent({id: item.id, key: 'qualities', value: qualities}) }, [qualities])
 
   return (
     <div

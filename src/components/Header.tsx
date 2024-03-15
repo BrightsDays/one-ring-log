@@ -17,14 +17,16 @@ export const Header = ({ title, user }: Props) => {
   }
 
   return (
-    <header className="flex justify-between border-solid pb-3">
+    <header className="flex justify-between border-solid pb-3 items-center">
       <h1 className='font-[MiddleEarth] text-xl sm:text-3xl'>{ title ? title : 'One Ring Logger' }</h1>
       { user ?
         <div className="flex gap-2 items-center">
           <span className="hidden sm:block">{ user }</span>
           <Button text="log out" size="small" buttonEvent={() => signOut()} />
         </div> :
-        <Link to='/one-ring-log/'>To sign in page</Link>
+        <Link to='/one-ring-log/'>
+          <Button text="To sign in page" size="small" />
+        </Link>
       }
     </header>
   )

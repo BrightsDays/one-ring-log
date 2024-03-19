@@ -6,7 +6,7 @@ import supabase from "../../../supabase/supabaseClient"
 import { useEffect, useState } from "react"
 import { Button } from "../../ui/Button"
 import { RootState } from "../../../store/reducers"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const selectUser = (state: RootState) => state.user//TODO: use check as utility in main app
 
@@ -17,6 +17,7 @@ interface Props {
 
 export const PlayerList = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
@@ -34,6 +35,7 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
       setCompany(data)
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
+      dispatch({ type: 'PLAYERS_LOADED' })
     }
   }
 

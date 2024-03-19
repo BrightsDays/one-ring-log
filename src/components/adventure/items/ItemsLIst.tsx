@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../store/reducers"
 import { Item } from "./Item"
 import { useEffect, useState } from "react"
@@ -16,6 +16,7 @@ interface Props {
 
 export const ItemsList = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [items, setItems] = useState<ItemStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
@@ -33,6 +34,7 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
       setItems(data)
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
+      dispatch({ type: 'ITEMS_LOADED' })
     }
   }
 

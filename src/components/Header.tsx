@@ -13,7 +13,7 @@ export const Header = ({ title, user }: Props) => {
 
   const signOut = () => {
     supabase.auth.signOut()
-    dispatch({ type: 'clear'})
+    dispatch({ type: 'CLEAR_USER'})
   }
 
   return (

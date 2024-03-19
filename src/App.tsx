@@ -18,7 +18,7 @@ export const App = () => {
       const email = session?.user.email
       const id = session?.user.id
       
-      if (email) dispatch({ type: 'get', payload: { email, id } })
+      if (email) dispatch({ type: 'GET_USER', payload: { email, id } })
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

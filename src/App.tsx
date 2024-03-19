@@ -4,8 +4,9 @@ import supabase from "./supabase/supabaseClient"
 import { useEffect } from "react"
 import { PersonalArea } from "./components/PersonalArea"
 import { RootState } from "./store/reducers"
-import { Header } from "./components/Header"
 import ring from './assets/ring.png'
+import { PageLayout } from "./components/layouts/PageLayout"
+import { Header } from "./components/layouts/Header"
 
 const selectUser = (state: RootState) => state.user
 
@@ -18,13 +19,13 @@ export const App = () => {
       const email = session?.user.email
       const id = session?.user.id
       
-      if (email) dispatch({ type: 'get', payload: { email, id } })
+      if (email) dispatch({ type: 'GET_USER', payload: { email, id } })
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   // TODO: minimize ring images
   return (
-    <div className="flex flex-col p-3">
+    <PageLayout>
       { user.name && <Header user={user.name} /> }
       <div className="flex justify-center gap-3 flex-col sm:flex-row sm:gap-10 border-y-2 border-y-orange-700">
         <div className="flex sm:max-w-[320px] flex-col gap-3 pt-3 pb-3 items-center">
@@ -47,7 +48,7 @@ export const App = () => {
           { !user.name ? <AuthPage /> : <PersonalArea /> }
         </div>
       </div>
-    </div>
+    </PageLayout>
   )
 }
 

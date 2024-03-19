@@ -5,7 +5,7 @@ import supabase from "../../../supabase/supabaseClient"
 import { AnimalStats, UpdateAnimalData } from "../../../types"
 import { Button } from "../../ui/Button"
 import { RootState } from "../../../store/reducers"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const selectUser = (state: RootState) => state.user
 
@@ -16,6 +16,7 @@ interface Props {
 
 export const AnimalList = ({ adventureId, editable }: Props) => {
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [animals, setAnimals] = useState<AnimalStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
@@ -33,6 +34,7 @@ export const AnimalList = ({ adventureId, editable }: Props) => {
       setAnimals(data)
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
+      dispatch({ type: 'ANIMALS_LOADED' })
     }
   }
 

@@ -7,7 +7,7 @@ import { TextInput } from "../ui/TextInput"
 import supabase from "../../supabase/supabaseClient"
 import { LogKeys } from "../../types"
 import { RootState } from "../../store/reducers"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const selectUser = (state: RootState) => state.user
 
@@ -18,6 +18,7 @@ interface Props {
 
 export const Log = ({ editable, adventureId }: Props) => {
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const seasonList = ['winter', 'spring', 'summer', 'autumn']
 
   const [fetched, setFetched] = useState(false)
@@ -48,6 +49,8 @@ export const Log = ({ editable, adventureId }: Props) => {
       setLoremasterId(data[0].loremaster_id)
 
       setFetchError(null)
+      
+      dispatch({ type: 'LOG_LOADED' })
     }
   }
 

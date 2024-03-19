@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/reducers'
-import { Header } from '../Header'
+import { Header } from '../layouts/Header.tsx'
 import { ItemsList } from './items/ItemsLIst.tsx'
 import { Loading } from '../ui/Loading.tsx'
-import { PageLayout } from '../PageLayout.tsx'
+import { PageLayout } from '../layouts/PageLayout.tsx'
 
 type Adventure = {
   id: string
@@ -60,12 +60,6 @@ export const Journey = () => {
     }
     fetch()
   }, [])
-
-  useEffect(() => {
-    () => {
-      dispatch({ type: 'RESET_LOADING' })
-    }
-   }, [])
 
   return (
     <>

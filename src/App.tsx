@@ -5,8 +5,8 @@ import { useEffect } from "react"
 import { PersonalArea } from "./components/PersonalArea"
 import { RootState } from "./store/reducers"
 import ring from './assets/ring.png'
-import { PageLayout } from "./components/PageLayout"
-import { Header } from "./components/Header"
+import { PageLayout } from "./components/layouts/PageLayout"
+import { Header } from "./components/layouts/Header"
 
 const selectUser = (state: RootState) => state.user
 

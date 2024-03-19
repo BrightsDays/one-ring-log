@@ -56,10 +56,10 @@ const loadingReducer = (state = loadingState, action: PayloadAction) => {
     case 'RESET_LOADING':
       return {
         ...state,
-        log: true,
-        players: true,
-        animals: true,
-        items: true
+        log: false,
+        players: false,
+        animals: false,
+        items: false
       }
     default:
       return state

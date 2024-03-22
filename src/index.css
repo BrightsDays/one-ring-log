@@ -22,6 +22,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -85,4 +89,27 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-button {
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c2434797;
+  border: 3px #f9f8f3 solid;
+  border-left: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c24347;
 }

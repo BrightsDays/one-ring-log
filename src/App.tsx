@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import supabase from "./supabase/supabaseClient"
 import { useEffect } from "react"
 import { PersonalArea } from "./components/PersonalArea"
-import { RootState } from "./store/reducers"
+import { RootState } from "./reducers/main"
 import ring from './assets/ring.png'
 import { PageLayout } from "./components/layouts/PageLayout"
 import { Header } from "./components/layouts/Header"

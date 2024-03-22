@@ -1,9 +1,4 @@
-import { PayloadAction, combineReducers } from "@reduxjs/toolkit"
-
-const userState = {
-  id: null,
-  name: null
-}
+import { PayloadAction } from "@reduxjs/toolkit"
 
 const loadingState = {
   log: false,
@@ -12,26 +7,7 @@ const loadingState = {
   items: false
 }
 
-const userReducer = (state = userState, action: PayloadAction<{email: string, id: string}>) => {
-  switch (action.type) {
-    case 'GET_USER':
-      return {
-        ...state,
-        id: action.payload.id,
-        name: action.payload.email
-      }
-    case 'CLEAR_USER':
-      return {
-        ...state,
-        id: null,
-        name: null
-      }
-    default:
-      return state
-  }
-}
-
-const loadingReducer = (state = loadingState, action: PayloadAction) => {
+export const loadingReducer = (state = loadingState, action: PayloadAction) => {
   switch (action.type) {
     case 'LOG_LOADED':
       return {
@@ -69,11 +45,3 @@ const loadingReducer = (state = loadingState, action: PayloadAction) => {
 export const isLoading = (state = loadingState) => {
   return state.log && state.players && state.animals && state.items
 }
-
-const rootReducer = combineReducers({
-  user: userReducer,
-  loading: loadingReducer
-})
-
-export type RootState = ReturnType<typeof rootReducer>
-export default rootReducer

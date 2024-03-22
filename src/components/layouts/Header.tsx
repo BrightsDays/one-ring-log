@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import supabase from "../../supabase/supabaseClient"
 import { useDispatch } from "react-redux"
 import { Button } from "../ui/Button"
@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const Header = ({ title, user }: Props) => {
+  const location = useLocation()
   const dispatch = useDispatch()
 
   const signOut = () => {
@@ -21,7 +22,12 @@ export const Header = ({ title, user }: Props) => {
       <h1 className='font-[MiddleEarth] text-xl sm:text-3xl'>{ title ? title : 'One Ring Logger' }</h1>
       { user ?
         <div className="flex gap-2 items-center">
-          <span className="hidden sm:block">{ user }</span>
+        {location.pathname === '/one-ring-log/' ?
+            <span className="hidden sm:block">{ user }</span> :
+          <Link to='/one-ring-log/'>
+            <span className="hidden sm:block">{ user }</span>
+          </Link>
+        }
           <Button text="log out" size="small" buttonEvent={() => signOut()} />
         </div> :
         <Link to='/one-ring-log/'>

@@ -6,11 +6,12 @@ import supabase from "../../supabase/supabaseClient"
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store/reducers'
+import { RootState } from '../../reducers/main.ts'
 import { Header } from '../layouts/Header.tsx'
 import { ItemsList } from './items/ItemsLIst.tsx'
 import { Loading } from '../ui/Loading.tsx'
 import { PageLayout } from '../layouts/PageLayout.tsx'
+import { createPortal } from 'react-dom'
 
 type Adventure = {
   id: string
@@ -63,14 +64,17 @@ export const Journey = () => {
 
   return (
     <>
-      { (!loading.log || !loading.players || !loading.animals || !loading.items) && <Loading /> }
-      <div className={`${(!loading.log || !loading.players || !loading.animals || !loading.items) ? 'hidden ' : ''}flex flex-col p-3`}>
+      {(!loading.log || !loading.players || !loading.animals || !loading.items) && createPortal(
+        <Loading fullScreen />,
+        document.body
+      )}
+      <div className={`${(!loading.log || !loading.players || !loading.animals || !loading.items) ? 'hidden ' : ''}`}>
         <PageLayout>
           { adventure ? 
             <Header title={adventure.adventure} user={user.name} /> :
             <h1>{ fetchError }</h1>
           }
-          <div className='flex flex-col sm:flex-row gap-1 py-1 border-solid border-t-2 sm:border-b-2 border-y-orange-700'>
+          <div className='flex flex-col sm:flex-row gap-1 py-1 border-solid border-t-2 sm:border-b-2 border-y-orange-700 justify-between'>
             {id && <Log adventureId={id} editable={user.id === adventure?.loremaster_id} />}
             {id && <PlayerList adventureId={id} editable={user.id === adventure?.loremaster_id} />}
             {id && <AnimalList adventureId={id} editable={user.id === adventure?.loremaster_id} />}

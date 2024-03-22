@@ -7,7 +7,7 @@ interface Props {
   disabled?: boolean
   inputEvent: (data: string) => void
 }
-
+//TODO: create custom select input
 export const SelectInput = ({label, value, list, inputEvent, disabled}: Props) => {
   const sendValue = (event: ChangeEvent<HTMLSelectElement>) => {
     inputEvent(event.target?.value)

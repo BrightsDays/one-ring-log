@@ -22,7 +22,6 @@ export const PageLayout = ({ children }: Props) => {
   }, [])
 
   useEffect(() => {
-    console.log('Location changed');
     dispatch({ type: 'RESET_LOADING' })
   }, [location]);
 

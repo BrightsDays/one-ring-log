@@ -6,7 +6,6 @@ import { AnimalStats, UpdateAnimalData } from "../../../types"
 import { Button } from "../../ui/Button"
 import { RootState } from "../../../reducers/main"
 import { useDispatch, useSelector } from "react-redux"
-import { Loading } from "../../ui/Loading"
 
 const selectUser = (state: RootState) => state.user
 
@@ -87,9 +86,8 @@ export const AnimalList = ({ adventureId, editable }: Props) => {
   }, [supabase, loremasterId, user.id])
 
   return (
-    <Card title="Ponies and horses">
+    <Card title="Ponies and horses" loading={loading}>
       <div className="relative flex flex-col gap-2">
-        {loading && <Loading />}
         <div className="grid grid-cols-2 gap-2 text-black">
           <span>Name</span>
           <span>Vigour</span>

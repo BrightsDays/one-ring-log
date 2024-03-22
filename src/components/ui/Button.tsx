@@ -20,7 +20,7 @@ export const Button = ({text, size, disabled, buttonEvent}: Props) => {
     <button
       className={
         `${size === 'small' ? 'p-1 text-sm border-1 ' : 'border-2 ' } 
-        ${disabled ? 'opacity-30' : 'hover:opacity-80'}
+        ${disabled ? 'opacity-30' : 'hover:opacity-60'}
         border-solid text-orange-700 border-orange-700 bg-transparent hover:border-orange-700 font-[MiddleEarth] uppercase active:scale-90 transition ease-in-out duration-200 focus:outline-none`
       }
       disabled={disabled}

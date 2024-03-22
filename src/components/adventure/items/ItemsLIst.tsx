@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../../store/reducers"
+import { RootState } from "../../../reducers/main"
 import { Item } from "./Item"
 import { useEffect, useState } from "react"
 import { ItemStats, UpdateItemData } from "../../../types"
 import supabase from "../../../supabase/supabaseClient"
 import { Button } from "../../ui/Button"
+import { Loading } from "../../ui/Loading"
 
 const selectUser = (state: RootState) => state.user
 
@@ -20,8 +21,11 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [items, setItems] = useState<ItemStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const getItems = async () => {
+    setLoading(true)
+
     const { data, error } = await supabase
       .from('items')
       .select('id, adventure_id, loremaster_id, player_hero, item, type, craftsmanship, bane, qualities')
@@ -35,6 +39,7 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
       dispatch({ type: 'ITEMS_LOADED' })
+      setLoading(false)
     }
   }
 
@@ -89,7 +94,8 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   }, [supabase, loremasterId, user.id])
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-1">
+    <div className="relative grid grid-cols-1 sm:grid-cols-3 w-full gap-1">
+      {loading && <Loading />}
       {fetchError && <span className="text-red-500">{fetchError}</span>}
       {items && items
         .sort((a, b) => a.id - b.id)

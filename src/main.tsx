@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { Provider } from 'react-redux'
 import { configureStore, Tuple } from '@reduxjs/toolkit'
-import rootReducer from './store/reducers.ts'
+import rootReducer from './reducers/main.ts'
 import {
   createBrowserRouter,
   RouterProvider,

@@ -5,8 +5,9 @@ import { PlayerStats, UpdatePlaterData } from "../../../types"
 import supabase from "../../../supabase/supabaseClient"
 import { useEffect, useState } from "react"
 import { Button } from "../../ui/Button"
-import { RootState } from "../../../store/reducers"
+import { RootState } from "../../../reducers/main"
 import { useDispatch, useSelector } from "react-redux"
+import { Loading } from "../../ui/Loading"
 
 const selectUser = (state: RootState) => state.user//TODO: use check as utility in main app
 
@@ -21,8 +22,11 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [company, setCompany] = useState<PlayerStats[] | null>(null)
   const [loremasterId, setLoremasterId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const getPlayers = async () => {
+    setLoading(true)
+
     const { data, error } = await supabase
       .from('players')
       .select('id, adventure_id, loremaster_id, name, role, fatigue')
@@ -36,6 +40,7 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
       setFetchError(null)
       if (data[0]?.loremaster_id) setLoremasterId(data[0].loremaster_id)
       dispatch({ type: 'PLAYERS_LOADED' })
+      setLoading(false)
     }
   }
 
@@ -82,7 +87,8 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
 
   return (
     <Card title="The company">
-      <div className="flex flex-col gap-2">
+      <div className="relative flex flex-col gap-2">
+        {loading && <Loading />}
         <div className="grid sm:grid-cols-3 grid-cols-2 gap-2 text-black">
           <span>Name</span>
           <span>Journey role</span>

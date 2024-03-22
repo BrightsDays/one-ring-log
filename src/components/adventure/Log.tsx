@@ -6,7 +6,7 @@ import { SelectInput } from "../ui/SelectInput"
 import { TextInput } from "../ui/TextInput"
 import supabase from "../../supabase/supabaseClient"
 import { LogKeys } from "../../types"
-import { RootState } from "../../store/reducers"
+import { RootState } from "../../reducers/main"
 import { useDispatch, useSelector } from "react-redux"
 
 const selectUser = (state: RootState) => state.user

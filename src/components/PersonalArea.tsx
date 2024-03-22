@@ -1,7 +1,7 @@
 import supabase from "../supabase/supabaseClient"
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from "react"
-import { RootState } from "../store/reducers"
+import { RootState } from "../reducers/main"
 import { Adventure } from "../types"
 // import { Adventure, Character } from "../types"
 import { EditableList } from "./EditableList"

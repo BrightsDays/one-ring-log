@@ -7,22 +7,28 @@ import { Adventure } from "../types"
 import { EditableList } from "./EditableList"
 
 const selectUser = (state: RootState) => state.user
-
+//TODO: set error catching
 export const PersonalArea = () => {
   const [adventure, setAdventure] = useState('')
   const [adventureList, setAdventureList] = useState<Adventure[]>([])
+  const [loadingAadventure, setLoadingAdventure] = useState(false)
   // const [character, setCharacter] = useState('')
   // const [characterList, setCharacterList] = useState<Character[]>([])
 
   const user = useSelector(selectUser)
 
   const getAdventures = async () => {
+    setLoadingAdventure(true)
+
     const { data, error } = await supabase
       .from('adventures')
       .select('id, adventure')
       .eq('loremaster_id', user.id)
 
-    if (!error) setAdventureList(data)
+    if (!error) {
+      setAdventureList(data)
+      setLoadingAdventure(false)
+    }
   }
 
   const addAdventure = async () => {
@@ -93,6 +99,7 @@ export const PersonalArea = () => {
           maxLength={3}
           listEvent={(id) => deleteAdventure(id)}
           value={adventure}
+          loading={loadingAadventure}
           setEvent={(val) => setAdventure(val)}
           addEvent={() => addAdventure()}
         />

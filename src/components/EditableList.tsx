@@ -4,6 +4,7 @@ import { DeleteRowButton } from "./ui/DeleteRowButton"
 import { TextInput } from "./ui/TextInput"
 import { Button } from "./ui/Button"
 import { Loading } from "./ui/Loading"
+import { useState } from "react"
 
 interface Props {
   listType: 'adventure' | 'character'
@@ -15,8 +16,10 @@ interface Props {
   addEvent: () => void
   loading?: boolean
 }
-//TODO: Add check to delete
+
 export const EditableList = ({ listType, list, maxLength, listEvent, value, setEvent, addEvent, loading}: Props) => {
+  const [itemId, setId] = useState<string | null>(null)
+
   return (
     <div className="pb-2">
       <h2 className="text-lg font-medium pb-2 border-b border-y-orange-700">Your {listType}s:</h2>
@@ -25,14 +28,20 @@ export const EditableList = ({ listType, list, maxLength, listEvent, value, setE
         <div className="flex flex-col pt-2 pb-2 gap-1">
           { list.map(item => {
             return (
-              <div key={item.id} className="flex justify-between border-b pb-1">
+              <div key={item.id} className="relative flex justify-between border-b pb-1 h-8">
                 <Link to={`/one-ring-log/adventure?id=${item.id}`}>
                   { listType === 'adventure' ?
                     (item as Adventure).adventure :
                     (item as Character).name
                   }
                 </Link>
-                <DeleteRowButton show={true} buttonEvent={() => listEvent(item.id)} />
+                {itemId === item.id ?
+                  <div className="absolute right-0 flex gap-1 bg-[#f9f8f3]">
+                    <Button size="small" text="Delete" buttonEvent={() => itemId && listEvent(itemId)} />
+                    <Button size="small" text="Cancel" buttonEvent={() => setId(null)} />
+                  </div> :
+                  <DeleteRowButton show={true} buttonEvent={() => setId(item.id)} />
+                }
               </div>
             )
           })}

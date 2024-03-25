@@ -49,6 +49,12 @@ export type UpdateItemData = {
   value: string
 }
 
+export type Skill = {
+  name: string
+  value: number
+  favoured: boolean
+}
+
 export type LogKeys = 'year' | 'season' | 'from' | 'destination' | 'days'
 export type PlayerKeys = 'name' | 'role' | 'fatigue'
 export type Roles = 'guide' | 'look-out' | 'hunter' | 'scout'

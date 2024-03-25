@@ -9,6 +9,8 @@ import { useEffect, useState } from "react"
 import { ICharacter } from "../../types"
 import supabase from "../../supabase/supabaseClient"
 import { useLocation } from "react-router-dom"
+import { TextInput } from "../ui/TextInput"
+import { NumberInput } from "../ui/NumberInput"
 
 const selectUser = (state: RootState) => state.user
 const selectLoading = (state: RootState) => state.loading
@@ -22,7 +24,7 @@ export const Character = () => {
 
   const search = useLocation().search
   const searchParams = new URLSearchParams(search)
-  const id = searchParams.get('id')  
+  const id = searchParams.get('id')
 
   const fetchCharacter = async () => {
     const { data, error } = await supabase
@@ -68,7 +70,21 @@ export const Character = () => {
             <h1>{ fetchError }</h1>
           }
           <div className='flex flex-col sm:flex-row gap-1 py-1 border-solid border-t-2 sm:border-b-2 border-y-orange-700 justify-between'>
-            <span></span>
+            <div>
+              <TextInput label="Heroic Culture" value={''} inputEvent={() => {}}/>
+              <TextInput label="Cultural Blessing" value={''} inputEvent={() => {}}/>
+              <TextInput label="Calling" value={''} inputEvent={() => {}}/>
+            </div>
+            <div>
+              <NumberInput label="Age" value={0} inputEvent={() => {}} />
+              <TextInput label="Patron" value={''} inputEvent={() => {}} />
+              <TextInput label="Shadow Path" value={''} inputEvent={() => {}} />
+            </div>
+            <div>
+              <TextInput label="Distinctive Features" value={''} inputEvent={() => {}} />
+              <TextInput label=" " value={''} inputEvent={() => {}} />
+              <TextInput label="Flaws" value={''} inputEvent={() => {}} />
+            </div>
           </div>
         </PageLayout>
       </div>

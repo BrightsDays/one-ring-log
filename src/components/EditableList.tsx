@@ -41,7 +41,7 @@ export const EditableList = ({ listType, list, maxLength, listEvent, value, setE
           <div className="flex justify-between gap-2 items-stretch">
             <TextInput
               value={value}
-              placeholder={`Instert ${listType} ${listType === 'adventure' ? 'title' : 'name'}`}
+              placeholder={`Insert ${listType} ${listType === 'adventure' ? 'title' : 'name'}`}
               inputEvent={value => setEvent(value)}
             />
             <Button size="small" text="Add" disabled={!value.length} buttonEvent={() => addEvent()} />

@@ -24,8 +24,6 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   const [loading, setLoading] = useState(false)
 
   const getItems = async () => {
-    setLoading(true)
-
     const { data, error } = await supabase
       .from('items')
       .select('id, adventure_id, loremaster_id, player_hero, item, type, craftsmanship, bane, qualities')
@@ -44,6 +42,7 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   }
 
   const addItem = async () => {
+    setLoading(true)
     await supabase
       .from('items')
       .insert([{
@@ -67,6 +66,7 @@ export const ItemsList = ({ adventureId, editable }: Props) => {
   }
 
   const deleteItem = async (id: number) => {
+    setLoading(true)
     await supabase
       .from('items')
       .delete()

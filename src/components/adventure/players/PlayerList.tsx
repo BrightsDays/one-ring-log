@@ -8,7 +8,7 @@ import { Button } from "../../ui/Button"
 import { RootState } from "../../../reducers/main"
 import { useDispatch, useSelector } from "react-redux"
 
-const selectUser = (state: RootState) => state.user//TODO: use check as utility in main app
+const selectUser = (state: RootState) => state.user
 
 interface Props {
   adventureId: string
@@ -24,8 +24,6 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
   const [loading, setLoading] = useState(false)
 
   const getPlayers = async () => {
-    setLoading(true)
-
     const { data, error } = await supabase
       .from('players')
       .select('id, adventure_id, loremaster_id, name, role, fatigue')
@@ -44,6 +42,7 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
   }
 
   const addPlayer = async () => {
+    setLoading(true)
     await supabase
       .from('players')
       .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', role: 'guide', fatigue: 0 }])
@@ -58,6 +57,7 @@ export const PlayerList = ({ adventureId, editable }: Props) => {
   }
 
   const deletePlayer = async (id: number) => {
+    setLoading(true)
     await supabase
       .from('players')
       .delete()

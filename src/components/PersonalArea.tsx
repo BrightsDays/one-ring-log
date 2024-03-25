@@ -18,8 +18,6 @@ export const PersonalArea = () => {
   const user = useSelector(selectUser)
 
   const getAdventures = async () => {
-    setLoadingAdventure(true)
-
     const { data, error } = await supabase
       .from('adventures')
       .select('id, adventure')
@@ -32,20 +30,20 @@ export const PersonalArea = () => {
   }
 
   const addAdventure = async () => {
+    setLoadingAdventure(true)
     await supabase
       .from('adventures')
       .insert([{ adventure, loremaster_id: user.id }])
-
     getAdventures()
     setAdventure('')
   }
 
   const deleteAdventure = async (id: string) => {
+    setLoadingAdventure(true)
     await supabase
       .from('adventures')
       .delete()
       .eq('id', id)
-
     getAdventures()
   }
 

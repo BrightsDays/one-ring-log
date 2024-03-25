@@ -6,7 +6,7 @@ interface Props {
   disabled: boolean
   inputEvent: (data: boolean) => void
 }
-//TODO: Circles rise in size
+
 export const CheckboxInput = ({label, value, disabled, inputEvent}: Props) => {
   const sendValue = (event: ChangeEvent<HTMLInputElement>) => {
     inputEvent(event.target.checked)

@@ -10,6 +10,8 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import { Journey } from './components/adventure/Journey.tsx'
+import { Character } from './components/character/Character.tsx'
+
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/one-ring-log/adventure/",
     element: <Journey />
+  },
+  {
+    path: "/one-ring-log/character/",
+    element: <Character />
   }
 ])
 

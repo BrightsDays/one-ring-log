@@ -4,7 +4,8 @@ const loadingState = {
   log: false,
   players: false,
   animals: false,
-  items: false
+  items: false,
+  character: false
 }
 
 export const loadingReducer = (state = loadingState, action: PayloadAction) => {
@@ -29,13 +30,19 @@ export const loadingReducer = (state = loadingState, action: PayloadAction) => {
         ...state,
         items: true
       }
+    case 'CHARACTER_LOADED':
+      return {
+        ...state,
+        character: true
+      }
     case 'RESET_LOADING':
       return {
         ...state,
         log: false,
         players: false,
         animals: false,
-        items: false
+        items: false,
+        character: false
       }
     default:
       return state

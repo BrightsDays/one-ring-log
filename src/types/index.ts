@@ -3,7 +3,7 @@ export type Adventure = {
   adventure: string
 }
 
-export type Character = {
+export type ICharacter = {
   id: string
   name: string
 }

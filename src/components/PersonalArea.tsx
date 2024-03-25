@@ -12,8 +12,8 @@ export const PersonalArea = () => {
   const [adventure, setAdventure] = useState('')
   const [adventureList, setAdventureList] = useState<Adventure[]>([])
   const [loadingAadventure, setLoadingAdventure] = useState(false)
-  // const [character, setCharacter] = useState('')
-  // const [characterList, setCharacterList] = useState<Character[]>([])
+  const [character, setCharacter] = useState('')
+  const [characterList, setCharacterList] = useState<Character[]>([])
 
   const user = useSelector(selectUser)
 
@@ -47,42 +47,42 @@ export const PersonalArea = () => {
     getAdventures()
   }
 
-  // const getCharacters = async () => {
-  //   const { data, error } = await supabase
-  //     .from('characters')
-  //     .select('id, name')
-  //     .eq('loremaster_id', user.id)
+  const getCharacters = async () => {
+    const { data, error } = await supabase
+      .from('characters')
+      .select('id, name')
+      .eq('loremaster_id', user.id)
 
-  //   if (!error) setCharacterList(data)
-  // }
+    if (!error) setCharacterList(data)
+  }
 
-  // const addCharacter = async () => {
-  //   await supabase
-  //     .from('characters')
-  //     .insert([{ name: character, loremaster_id: user.id }])
+  const addCharacter = async () => {
+    await supabase
+      .from('characters')
+      .insert([{ name: character, loremaster_id: user.id }])
 
-  //   getCharacters()
-  //   setCharacter('')
-  // }
+    getCharacters()
+    setCharacter('')
+  }
 
-  // const deleteCharacter = async (id: string) => {
-  //   await supabase
-  //     .from('characters')
-  //     .delete()
-  //     .eq('id', id)
+  const deleteCharacter = async (id: string) => {
+    await supabase
+      .from('characters')
+      .delete()
+      .eq('id', id)
 
-  //   getCharacters()
-  // }
+    getCharacters()
+  }
 
   useEffect(() => {
     getAdventures()
-    // getCharacters()
+    getCharacters()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="flex flex-col pt-3 pb-3 gap-3">
-        {/* <EditableList
+        <EditableList
           listType="character"
           list={characterList}
           maxLength={5}
@@ -90,7 +90,7 @@ export const PersonalArea = () => {
           value={character}
           setEvent={(val) => setCharacter(val)}
           addEvent={() => addCharacter()}
-        /> */}
+        />
         <EditableList
           listType="adventure"
           list={adventureList}

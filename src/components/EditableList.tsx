@@ -29,7 +29,7 @@ export const EditableList = ({ listType, list, maxLength, listEvent, value, setE
           { list.map(item => {
             return (
               <div key={item.id} className="relative flex justify-between border-b pb-1 h-8">
-                <Link to={`/one-ring-log/adventure?id=${item.id}`}>
+                <Link to={`/one-ring-log/${listType}?id=${item.id}`}>
                   { listType === 'adventure' ?
                     (item as Adventure).adventure :
                     (item as Character).name

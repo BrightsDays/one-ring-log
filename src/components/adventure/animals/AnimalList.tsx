@@ -23,8 +23,6 @@ export const AnimalList = ({ adventureId, editable }: Props) => {
   const [loading, setLoading] = useState(false)
 
   const getAnimals = async () => {
-    setLoading(true)
-
     const { data, error } = await supabase
       .from('animals')
       .select('id, adventure_id, loremaster_id, name, vigour')
@@ -43,6 +41,7 @@ export const AnimalList = ({ adventureId, editable }: Props) => {
   }
 
   const createAnimal = async () => {
+    setLoading(true)
     await supabase
       .from('animals')
       .insert([{ adventure_id: adventureId, loremaster_id: user.id, name: '', vigour: 0 }])
@@ -57,6 +56,7 @@ export const AnimalList = ({ adventureId, editable }: Props) => {
   }
 
   const deleteAnimal = async (id: number) => {
+    setLoading(true)
     await supabase
       .from('animals')
       .delete()

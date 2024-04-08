@@ -6,16 +6,18 @@ interface Props {
 }
 
 export const DeleteRowButton = ({ show, buttonEvent }: Props) => {
+  const clickHandler = () => {
+    buttonEvent()
+  }
+
   return (
-    <>
-      {show ?
-        <button className="block w-5 bg-transparent p-0 border-0 hover:opacity-80 active:scale-90 transition ease-in-out duration-200 focus:outline-none" onClick={() => buttonEvent()}>
-          <img className="h-5" src={trash} alt="trash" />
-        </button> : 
-        <button className="block bg-transparent p-0 border-0 opacity-30 cursor-auto">
-          <img className="h-5" src={trash} alt="trash" />
-        </button>
-      }
-    </>
+    <button
+      className="block w-5 bg-transparent p-0 border-0 hover:opacity-80 active:scale-90 transition ease-in-out duration-200 focus:outline-none disabled:opacity-30"
+      test-data-id="delete-icon"
+      disabled={!show}
+      onClick={clickHandler}
+    >
+      <img className="h-5" src={trash} alt="trash" />
+    </button>
   )
 }

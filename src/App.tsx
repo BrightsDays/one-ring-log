@@ -31,13 +31,13 @@ export const App = () => {
         <div className="flex sm:max-w-[320px] flex-col gap-3 pt-3 pb-3 items-center">
           <div className="flex gap-1">
             <img className="max-w-[90px] block sm:hidden" src={ring} alt="ring" />
-            <span>
+            <span text-data-id='description'>
               One Ring Logger is a web application that helps Loremasters run games 
               and helps players save character data.
             </span>
           </div>
           <img className="max-w-[320px] hidden sm:block" src={ring} alt="ring" />
-          <span className="text-center sm:text-left">
+          <span className="text-center sm:text-left" text-data-id='links-container'>
             Game released by <a href="https://freeleaguepublishing.com" target="_blank">Free League Publishing</a>
             <br />
             Official game page: <a href="https://freeleaguepublishing.com/games/the-one-ring/" target="_blank">The One Ring</a><br />

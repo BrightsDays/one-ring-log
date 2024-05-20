@@ -19,13 +19,27 @@ export const Header = ({ title, user }: Props) => {
 
   return (
     <header className="flex justify-between border-solid pb-3 items-center">
-      <h1 className='font-[MiddleEarth] text-xl sm:text-3xl'>{ title ? title : 'One Ring Logger' }</h1>
+      <h1
+        className='font-[MiddleEarth] text-xl sm:text-3xl'
+        test-data-id='title'
+      >
+        { title ? title : 'One Ring Logger' }
+      </h1>
       { user ?
         <div className="flex gap-2 items-center">
         {location.pathname === '/one-ring-log/' ?
-            <span className="hidden sm:block">{ user }</span> :
-          <Link to='/one-ring-log/'>
-            <span className="hidden sm:block">{ user }</span>
+          <span
+            className="hidden sm:block"
+            test-data-id='user-email'
+          >{ user }</span> :
+          <Link
+            to='/one-ring-log/'
+            test-data-id='go-to-main'
+          >
+            <span
+              className="hidden sm:block"
+              test-data-id='user-email'
+            >{ user }</span>
           </Link>
         }
           <Button text="log out" size="small" buttonEvent={() => signOut()} />

@@ -25,7 +25,7 @@ export const Player = ({ player, editable, updateEvent, deleteEvent }: Props) =>
   useEffect(() => { updateEvent({id: player.id, key: 'fatigue', value: fatigue}) }, [fatigue])
 
   return (
-    <div className="grid xl:grid-cols-3 grid-cols-2 gap-2">
+    <div className="grid xl:grid-cols-3 grid-cols-2 gap-2" text-data-id='player'>
       <TextInput disabled={!editable} value={name || ''} inputEvent={(value) => setName(value)}>
         <DeleteRowButton
           show={(!name.length && editable) ? true : false}
